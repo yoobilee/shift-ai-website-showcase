@@ -1,68 +1,117 @@
-# SHIFT — AI Website Showcase
-
-아이웹 웹디자이너·퍼블리셔 지원을 위해 제작한 단일 페이지 포트폴리오 프로젝트입니다.
+# SHIFT — AI 웹사이트 쇼케이스
 
 > 하나의 제작 시스템으로, 서로 다른 세 업종의 목적과 사용 흐름을 설계했습니다.
 
-업종 선택에 따라 같은 미리보기 안에서 레이아웃, 타이포그래피, 이미지 비율, 정보 구조, CTA와 모션이 함께 전환됩니다. 백엔드·로그인·DB 없이 React와 CSS만으로 동작합니다.
+SHIFT는 산업기술·B2B, 인테리어·공간, 로컬 F&B 홈페이지를 실제 전체 화면으로 탐색하는 프론트엔드 포트폴리오입니다. 공통 도구 모음에서 업종·테마·보기 모드를 바꾸고 프로젝트 설명을 열 수 있으며, 백엔드·로그인·DB 없이 React와 CSS로 동작합니다.
 
-## Three experiences
+표시된 브랜드, 제품 수치, 프로젝트와 주소는 정보 설계를 보여 주기 위한 가상 데이터입니다.
 
-| 업종          | 가상 브랜드      | 핵심 사용자 흐름      | 디자인 방향                                    |
-| ------------- | ---------------- | --------------------- | ---------------------------------------------- |
-| 산업기술·B2B  | VECTORON SYSTEMS | 정보 검증 → 견적 문의 | 다크 네이비, 고밀도 그리드, 수치와 사양 중심   |
-| 인테리어·공간 | MORU SPACE       | 감도 탐색 → 상담 예약 | 아이보리, 비대칭 편집 그리드, 대형 이미지 중심 |
-| 로컬 F&B      | BASKET DAY DELI  | 메뉴 발견 → 매장 방문 | 버터 옐로·토마토 레드, 캠페인과 행동 중심      |
+## 세 업종과 설계 목적
 
-## Interaction decisions
+| 업종          | 가상 브랜드      | 사용자 목적과 흐름                                             | 디자인 방향                                                     |
+| ------------- | ---------------- | -------------------------------------------------------------- | --------------------------------------------------------------- |
+| 산업기술·B2B  | VECTORON SYSTEMS | 기술 신뢰 형성 → 성능·사양 검토 → 적용 가능성 확인 → 견적 문의 | 네이비·블루, 수치와 사양 중심의 정밀한 정보 구조                |
+| 인테리어·공간 | MORU SPACE       | 프로젝트 감도 탐색 → 공간 철학 이해 → 작업 방식 확인 → 상담    | 아이보리·모노톤, 비대칭 여백과 대형 이미지의 편집 디자인        |
+| 로컬 F&B      | BASKET DAY DELI  | 메뉴 발견 → 시즌 행사 인지 → 가격·매장 확인 → 방문             | 버터 옐로·토마토 레드·바질, 빠른 행동을 돕는 카드와 캠페인 리듬 |
 
-- 업종 상태를 `?industry=industry|space|food` URL 파라미터와 동기화합니다.
-- PC 1440 px / 모바일 390 px 미리보기를 같은 화면에서 전환합니다.
-- 여러 고정 버튼은 하나의 확장형 Utility Dock으로 축약했습니다.
-- 여러 팝업을 동시에 띄우지 않고, 한 번에 한 공지만 읽는 Unified Notice Dialog를 사용합니다.
-- 주요 조작은 네이티브 버튼·링크로 제공하고, 키보드 포커스와 reduced motion을 지원합니다.
+공유하는 것은 업종·테마·보기 상태, 도구 모음, URL 규칙과 접근성 로직입니다. 섹션 순서, 그리드, 타입 스케일, 이미지 비율, CTA 표현은 업종별로 분리했습니다.
 
-## AI-assisted workflow
+## 전체 화면 탐색과 보기 모드
 
-1. `Frame` — 업종 목적, 핵심 행동, 필요한 정보와 금지 기준을 먼저 정의합니다.
-2. `Generate` — 카피와 이미지 방향을 구도·재질·톤 단위로 나눠 생성합니다.
-3. `Verify` — 브랜드 적합성, 사실성, 이미지 왜곡, 가독성, 저작권 리스크를 검토합니다.
-4. `Refine` — 생성 결과를 그대로 쓰지 않고 반응형 비율과 읽기 순서에 맞춰 재편집합니다.
+- 첫 진입에는 산업기술·B2B 홈페이지가 브라우저 프레임 없이 전체 너비로 표시됩니다.
+- 상단의 접근 가능한 3분할 탭으로 업종을 전환합니다.
+- 데스크톱에서는 전체 화면과 약 390px 너비의 모바일 미리보기를 선택할 수 있습니다.
+- 실제 작은 화면에서는 모바일 미리보기 제어를 숨기고 화면 너비에 맞는 모바일 레이아웃을 바로 표시합니다.
+- 프로젝트 설명은 오른쪽 drawer 형태의 모달에서 확인합니다.
 
-표시된 브랜드·제품 수치·주소는 정보 설계를 위한 가상 데이터입니다.
+## 라이트·다크 모드
 
-## Tech
+세 업종 모두 라이트와 다크 모드를 지원합니다. 테마는 업종 상태와 독립적으로 유지됩니다.
+
+- 저장된 선택이 없으면 `prefers-color-scheme`을 따릅니다.
+- 사용자가 직접 선택한 값은 `localStorage`에 저장합니다.
+- 루트의 `data-industry`, `data-theme` 속성과 업종별 의미 토큰으로 색상을 적용합니다.
+- 단순 색상 반전이 아니라 배경, 표면, 기본·보조 글자, 강조색, 경계와 그림자의 역할을 조합별로 정의합니다.
+
+## 반응형과 접근성
+
+- 320px부터 큰 화면까지 대응하는 CSS grid, container query와 유동형 크기
+- 탭의 `role="tablist"`, `role="tab"`, `aria-selected`, roving `tabindex`
+- 방향키, Home, End, Enter, Space를 지원하는 업종 선택기
+- 44px 수준의 조작 영역과 명확한 `focus-visible`
+- URL 직접 진입, 새로고침, 뒤로 가기와 앞으로 가기 지원
+- 설명 모달의 초점 이동·가두기·복귀, Escape 닫기와 배경 스크롤 차단
+- 제목 계층, landmark, 이미지 대체 텍스트와 `prefers-reduced-motion` 대응
+
+## 생성형 AI 활용 과정과 검토 기준
+
+1. 업종별 목적과 이미지 역할을 정의했습니다.
+2. 생성 프롬프트를 작성하고 시각 자산 후보를 생성했습니다.
+3. 브랜드 분위기, 구도, 색감과 실제 사용 맥락을 검토했습니다.
+4. 텍스트 왜곡, 비현실적 구조, 저작권 오인 가능성과 업종 부적합 요소를 점검했습니다.
+5. 선택한 이미지를 크롭·압축하고 WebP로 최적화했습니다.
+6. 실제 UI에서 가독성, 대비와 반응형 크롭을 다시 검토했습니다.
+
+생성 결과를 완성본으로 간주하지 않았으며, 최종 선택과 편집은 브랜드 적합성·사실성·가독성·구조적 왜곡 기준으로 사람이 수행했습니다. 자산별 기록은 [`docs/ai-asset-log.md`](docs/ai-asset-log.md)에 있습니다.
+
+## 기술 구성
 
 - React 19
 - TypeScript 6
 - Vite 8
-- CSS custom properties, container queries, native `<dialog>`
-- oxlint
+- CSS custom properties, grid, container query, native `<dialog>`
+- oxlint, Prettier
 
-## Run locally
+추가 UI·모션 라이브러리는 사용하지 않습니다.
+
+## 로컬 실행
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Validation
+Vite가 출력한 로컬 주소를 브라우저에서 엽니다.
 
-```bash
-npm run lint
-npm run build
+## URL 매개변수
+
+업종 상태는 `industry` 검색 매개변수와 동기화됩니다.
+
+```text
+?industry=industrial
+?industry=space
+?industry=food
 ```
 
-## Structure
+이전 링크 호환을 위해 `?industry=industry`도 산업기술·B2B로 처리합니다. 값이 없거나 잘못된 경우 `industrial`을 기본값으로 사용합니다.
+
+## 주요 폴더 구조
 
 ```text
 src/
-├── App.tsx              # portfolio shell, controls, notice dialog
-├── App.css              # shared tokens and three visual systems
-├── index.css            # global and accessibility foundations
-├── sites/
-│   ├── VectoronSite.tsx
-│   ├── MoruSite.tsx
-│   └── BasketSite.tsx
+├── App.tsx                         # 전체 화면 쇼케이스 셸과 독립 상태
+├── App.css                         # 기존 업종별 시각 시스템
+├── Shell.css                       # 도구 모음, 테마, drawer와 품질 보강
+├── components/
+│   ├── IndustrySegmentedControl.tsx
+│   ├── PortfolioToolbar.tsx
+│   └── ProjectInfoDialog.tsx
+├── config/industries.ts            # 업종 registry와 표시 데이터
+├── hooks/useTheme.ts               # 테마 상태와 루트 속성
+├── sites/                          # 업종별 독립 홈페이지
+├── utils/
+│   ├── themeStorage.ts
+│   └── urlState.ts
 └── types.ts
 ```
+
+## 검증 명령
+
+```bash
+npm run format:check
+npm run lint
+npm run build
+npm audit
+```
+
+현재 별도 자동 테스트 스크립트는 정의되어 있지 않습니다. 주요 상호작용과 반응형 화면은 브라우저에서 직접 확인합니다.

@@ -23,11 +23,11 @@ export function MoruSite() {
       <section className="moru-hero" id="moru-home">
         <div className="moru-intro">
           <span>Seoul · Since 2018</span>
-          <h2>
+          <h1>
             Space,
             <br />
             made to <em>linger.</em>
-          </h2>
+          </h1>
           <p>
             머무는 사람의 속도와 빛의 방향에서 시작하는 공간 디자인 스튜디오.
           </p>

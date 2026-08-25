@@ -25,11 +25,11 @@ export function VectoronSite() {
           <div className="vectoron-status">
             <i /> Vision inspection platform · VNX-400
           </div>
-          <h2>
+          <h1>
             보이지 않던 결함까지,
             <br />
             <em>생산 속도 그대로.</em>
-          </h2>
+          </h1>
           <p>
             AI 비전 검사와 엣지 컴퓨팅을 결합해 생산 라인의 미세 결함을
             실시간으로 판별합니다.
@@ -139,6 +139,40 @@ export function VectoronSite() {
               </div>
             </dl>
           </div>
+        </div>
+      </section>
+      <section
+        className="vectoron-applications"
+        aria-labelledby="vectoron-applications-title"
+      >
+        <div className="vectoron-application-intro">
+          <span>Application / 02</span>
+          <h3 id="vectoron-applications-title">
+            생산 환경에 맞춰
+            <br />
+            즉시 적용합니다.
+          </h3>
+          <p>
+            기존 라인의 속도와 조명, 결함 기준을 분석해 필요한 검사 모듈만
+            구성합니다.
+          </p>
+        </div>
+        <div className="vectoron-application-grid">
+          <article>
+            <span>01</span>
+            <h4>정밀 전자 부품</h4>
+            <p>미세 스크래치와 조립 오차를 고속 촬영으로 판별합니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h4>자동차 부품</h4>
+            <p>형상, 치수와 체결 상태를 공정 흐름 안에서 함께 확인합니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h4>패키징 라인</h4>
+            <p>인쇄, 라벨과 밀봉 상태를 생산 속도 저하 없이 추적합니다.</p>
+          </article>
         </div>
       </section>
       <section className="vectoron-spec" id="vectoron-spec">

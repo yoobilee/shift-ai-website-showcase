@@ -34,10 +34,10 @@ export function BasketSite() {
             LIMITED
           </span>
           <p>Fresh from the neighborhood.</p>
-          <h2>
+          <h1>
             오늘의 기분을
             <br />한 바구니 가득!
-          </h2>
+          </h1>
           <p className="basket-description">
             제철 토마토와 바질, 갓 구운 포카치아로 만든 우리 동네의 산뜻한 여름
             한 끼.
