@@ -1,9 +1,13 @@
 /* Full-screen portfolio shell */
 :root {
-  --portfolio-toolbar-size: 58px;
+  --portfolio-toolbar-expanded-height: 58px;
+  --portfolio-toolbar-collapsed-height: 45px;
+  --portfolio-toolbar-current-height: var(--portfolio-toolbar-expanded-height);
+  --industry-header-current-height: 72px;
   --anchor-clearance: 16px;
-  --anchor-offset: calc(
-    var(--portfolio-toolbar-size) + var(--anchor-clearance)
+  --sticky-stack-offset: calc(
+    var(--portfolio-toolbar-current-height) +
+      var(--industry-header-current-height) + var(--anchor-clearance)
   );
   --shell-background: #e9ebef;
   --toolbar-background: rgba(250, 251, 252, 0.94);
@@ -27,6 +31,18 @@
   --dialog-header-background: rgba(243, 240, 233, 0.94);
   --dialog-backdrop: rgba(8, 10, 14, 0.6);
   --dialog-shadow: -28px 0 80px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-toolbar-state="collapsed"] {
+  --portfolio-toolbar-current-height: var(--portfolio-toolbar-collapsed-height);
+}
+
+:root[data-industry="space"] {
+  --industry-header-current-height: 76px;
+}
+
+:root[data-industry="food"] {
+  --industry-header-current-height: 74px;
 }
 
 :root[data-theme="dark"] {
@@ -55,7 +71,7 @@
 
 html {
   background: var(--shell-background);
-  scroll-padding-block-start: var(--anchor-offset);
+  scroll-padding-block-start: var(--sticky-stack-offset);
 }
 
 body {
@@ -87,20 +103,34 @@ body.dialog-open {
   position: sticky;
   z-index: 100;
   inset-block-start: 0;
-  min-height: 58px;
+  min-height: var(--portfolio-toolbar-current-height);
   padding: 6px clamp(12px, 2vw, 28px);
   border-bottom: 1px solid var(--toolbar-border);
   background: var(--toolbar-background);
   box-shadow: var(--toolbar-shadow);
   backdrop-filter: blur(18px) saturate(1.2);
   display: grid;
-  grid-template-columns: minmax(76px, 1fr) minmax(430px, 620px) minmax(
-      260px,
-      1fr
-    );
+  grid-template-columns:
+    minmax(76px, 1fr) minmax(430px, 620px) minmax(260px, 1fr)
+    44px;
   align-items: center;
   gap: 18px;
   color: var(--toolbar-text);
+}
+
+.portfolio-toolbar-controls {
+  display: contents;
+}
+
+.portfolio-toolbar[data-expanded="false"] {
+  min-height: var(--portfolio-toolbar-collapsed-height);
+  padding-block: 0;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 12px;
+}
+
+.portfolio-toolbar[data-expanded="false"] .portfolio-toolbar-controls {
+  display: none;
 }
 
 .shift-wordmark {
@@ -196,7 +226,8 @@ body.dialog-open {
 
 .theme-control button,
 .viewport-control button,
-.project-info-trigger {
+.project-info-trigger,
+.portfolio-toolbar-toggle {
   min-width: 36px;
   min-height: 36px;
   padding: 0;
@@ -208,6 +239,20 @@ body.dialog-open {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.portfolio-toolbar-toggle {
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--toolbar-border);
+  border-radius: 12px;
+  color: var(--toolbar-text);
+  background: var(--toolbar-active);
+}
+
+.portfolio-toolbar[data-expanded="false"] .portfolio-toolbar-toggle svg {
+  transform: rotate(180deg);
 }
 
 .theme-control button[aria-pressed="true"],
@@ -240,14 +285,14 @@ body.dialog-open {
 }
 
 .showcase-stage {
-  min-height: calc(100svh - 58px);
+  min-height: calc(100svh - var(--portfolio-toolbar-current-height));
   background: var(--shell-background);
 }
 
 .industry-panel {
   width: 100%;
   min-width: 0;
-  min-height: calc(100svh - 58px);
+  min-height: calc(100svh - var(--portfolio-toolbar-current-height));
   margin-inline: auto;
   overflow-x: clip;
   outline: none;
@@ -277,9 +322,20 @@ body.dialog-open {
   overflow-y: visible;
 }
 
+.vectoron-header,
+.moru-header,
+.basket-header {
+  position: sticky;
+  z-index: 80;
+  inset-block-start: var(--portfolio-toolbar-current-height);
+  height: var(--industry-header-layout-height);
+  min-height: var(--industry-header-layout-height);
+  background: var(--site-background);
+}
+
 /* Project information drawer */
 .project-info-dialog {
-  width: min(720px, 92vw);
+  width: min(1120px, 94vw);
   height: 100dvh;
   max-width: none;
   max-height: none;
@@ -368,13 +424,20 @@ body.dialog-open {
 }
 
 .project-info-lead {
-  width: min(100%, 24ch);
-  margin: 0 0 clamp(64px, 10vw, 110px);
+  width: 100%;
+  margin: 0 0 clamp(56px, 8vw, 88px);
   font-family: var(--font-serif);
-  font-size: clamp(34px, 7cqi, 52px);
+  font-size: clamp(26px, 4.4cqi, 32px);
   line-height: 1.16;
   letter-spacing: -0.055em;
   text-wrap: balance;
+}
+
+@container project-info (min-width: 1060px) {
+  .project-info-lead {
+    font-size: 27px;
+    white-space: nowrap;
+  }
 }
 
 .project-info-content section {
@@ -442,6 +505,7 @@ body.dialog-open {
 
 /* Industry 01: Vectoron light and dark semantic tokens */
 .vectoron-site {
+  --industry-header-layout-height: 72px;
   --site-background: #050b18;
   --site-surface: #0a1426;
   --site-text: #eef4ff;
@@ -704,6 +768,7 @@ body.dialog-open {
 
 /* Industry 02: Moru light and dark semantic tokens */
 .moru-site {
+  --industry-header-layout-height: 76px;
   --site-background: #ede9df;
   --site-surface: #f8f5ee;
   --site-text: #25231f;
@@ -794,6 +859,7 @@ body.dialog-open {
 
 /* Industry 03: Basket Day light and dark semantic tokens */
 .basket-site {
+  --industry-header-layout-height: 74px;
   --site-background: #fff5d7;
   --site-surface: #fff9e7;
   --site-text: #27241f;
@@ -919,10 +985,20 @@ body.dialog-open {
     transition: transform 180ms var(--shell-ease);
   }
 
-  .industry-segmented-control button,
+  .industry-segmented-control button {
+    transition:
+      color 120ms ease,
+      background-color 120ms ease;
+  }
+
+  .portfolio-toolbar-toggle svg {
+    transition: transform 140ms ease;
+  }
+
   .theme-control button,
   .viewport-control button,
   .project-info-trigger,
+  .portfolio-toolbar-toggle,
   .project-info-header button {
     transition:
       color 120ms ease,
@@ -962,8 +1038,8 @@ body.dialog-open {
 }
 
 @media (max-width: 1040px) {
-  .portfolio-toolbar {
-    grid-template-columns: 76px minmax(390px, 1fr) auto;
+  .portfolio-toolbar[data-expanded="true"] {
+    grid-template-columns: 76px minmax(350px, 1fr) auto 44px;
     gap: 12px;
   }
 
@@ -984,15 +1060,25 @@ body.dialog-open {
 
 @media (max-width: 760px) {
   :root {
-    --portfolio-toolbar-size: calc(103px + max(5px, env(safe-area-inset-top)));
+    --portfolio-toolbar-expanded-height: calc(
+      104px + max(5px, env(safe-area-inset-top))
+    );
+    --portfolio-toolbar-collapsed-height: calc(45px + env(safe-area-inset-top));
   }
 
-  .portfolio-toolbar {
-    min-height: 108px;
+  .portfolio-toolbar[data-expanded="true"] {
+    min-height: var(--portfolio-toolbar-expanded-height);
     padding: max(5px, env(safe-area-inset-top)) 12px 7px;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto 44px;
     grid-template-rows: 44px 48px;
     gap: 4px 10px;
+  }
+
+  .portfolio-toolbar[data-expanded="false"] {
+    min-height: var(--portfolio-toolbar-collapsed-height);
+    padding: env(safe-area-inset-top) 12px 0;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-rows: 44px;
   }
 
   .shift-wordmark {
@@ -1003,6 +1089,15 @@ body.dialog-open {
   .toolbar-actions {
     grid-column: 2;
     grid-row: 1;
+  }
+
+  .portfolio-toolbar-toggle {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .portfolio-toolbar[data-expanded="false"] .portfolio-toolbar-toggle {
+    grid-column: 2;
   }
 
   .toolbar-industry-control {
@@ -1040,7 +1135,7 @@ body.dialog-open {
 
   .showcase-stage,
   .industry-panel {
-    min-height: calc(100svh - 108px);
+    min-height: calc(100svh - var(--portfolio-toolbar-current-height));
   }
 
   .showcase-stage[data-viewport="mobile"] {
@@ -1347,10 +1442,15 @@ body.dialog-open {
 }
 
 @container (max-width: 900px) {
+  .vectoron-site,
+  .moru-site {
+    --industry-header-layout-height: 64px;
+  }
+
   .vectoron-header,
   .moru-header {
-    height: auto;
-    min-height: 64px;
+    height: var(--industry-header-layout-height);
+    min-height: var(--industry-header-layout-height);
     padding: 8px 20px;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 16px;
@@ -1465,9 +1565,13 @@ body.dialog-open {
 }
 
 @container (max-width: 800px) {
+  .basket-site {
+    --industry-header-layout-height: 64px;
+  }
+
   .basket-header {
-    height: auto;
-    min-height: 64px;
+    height: var(--industry-header-layout-height);
+    min-height: var(--industry-header-layout-height);
     padding: 8px 18px;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 14px;
@@ -1601,10 +1705,15 @@ body.dialog-open {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .industry-segmented-control button:hover,
+  .industry-segmented-control button:not([aria-selected="true"]):hover {
+    color: var(--toolbar-text);
+    background: color-mix(in srgb, var(--toolbar-active) 48%, transparent);
+  }
+
   .theme-control button:hover,
   .viewport-control button:hover,
-  .project-info-trigger:hover {
+  .project-info-trigger:hover,
+  .portfolio-toolbar-toggle:hover {
     color: var(--toolbar-text);
     background: var(--toolbar-active);
     box-shadow: inset 0 0 0 1px var(--toolbar-border);
@@ -1694,7 +1803,7 @@ body.dialog-open {
 .vectoron-site a:active,
 .moru-site a:active,
 .basket-site a:active,
-.portfolio-toolbar button:active,
+.portfolio-toolbar button:not([role="tab"]):active,
 .project-info-header button:active {
   transform: scale(0.96);
 }
@@ -1718,10 +1827,14 @@ body.dialog-open {
     transition-duration: 0s;
   }
 
+  .portfolio-toolbar-toggle svg {
+    transition: none;
+  }
+
   .vectoron-site a:active,
   .moru-site a:active,
   .basket-site a:active,
-  .portfolio-toolbar button:active,
+  .portfolio-toolbar button:not([role="tab"]):active,
   .project-info-header button:active {
     transform: none;
   }

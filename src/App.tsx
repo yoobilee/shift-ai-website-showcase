@@ -4,6 +4,7 @@ import "./Shell.css";
 import { PortfolioToolbar } from "./components/PortfolioToolbar";
 import { ProjectInfoDialog } from "./components/ProjectInfoDialog";
 import { industries } from "./config/industries";
+import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
 import { useTheme } from "./hooks/useTheme";
 import { BasketSite } from "./sites/BasketSite";
 import { MoruSite } from "./sites/MoruSite";
@@ -25,16 +26,26 @@ function App() {
   const [industry, setIndustry] = useState<IndustryId>(readIndustryFromUrl);
   const [viewport, setViewport] = useState<ViewportMode>("fullscreen");
   const [projectInfoOpen, setProjectInfoOpen] = useState(false);
+  const [toolbarExpanded, setToolbarExpanded] = useState(true);
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   const { theme, selectTheme } = useTheme();
   const appContentRef = useRef<HTMLDivElement>(null);
   const projectInfoButtonRef = useRef<HTMLButtonElement>(null);
+  const industryPanelRef = useRef<HTMLDivElement>(null);
   const industryRef = useRef(industry);
   const pendingHistoryHashRef = useRef<string | null>(null);
   const restoreInitialHashRef = useRef(true);
   const ActiveSite = siteMap[industry];
   const activeIndustry =
     industries.find((item) => item.id === industry) ?? industries[0];
+
+  useStickyHeaderHeight(industryPanelRef, industry);
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.toolbarState = toolbarExpanded
+      ? "expanded"
+      : "collapsed";
+  }, [toolbarExpanded]);
 
   useLayoutEffect(() => {
     industryRef.current = industry;
@@ -108,11 +119,13 @@ function App() {
           industry={industry}
           theme={theme}
           viewport={viewport}
+          expanded={toolbarExpanded}
           projectInfoButtonRef={projectInfoButtonRef}
           onIndustryChange={selectIndustry}
           onThemeChange={selectTheme}
           onViewportChange={setViewport}
           onOpenProjectInfo={() => setProjectInfoOpen(true)}
+          onExpandedChange={setToolbarExpanded}
         />
 
         <main
@@ -122,6 +135,7 @@ function App() {
           aria-label={`${activeIndustry.desktopLabel} 홈페이지 미리보기`}
         >
           <div
+            ref={industryPanelRef}
             key={industry}
             id={activeIndustry.panelId}
             className="industry-panel"
