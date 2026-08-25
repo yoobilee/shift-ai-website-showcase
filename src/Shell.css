@@ -4,10 +4,9 @@
   --portfolio-toolbar-collapsed-height: 0px;
   --portfolio-toolbar-current-height: var(--portfolio-toolbar-expanded-height);
   --industry-header-current-height: 72px;
-  --anchor-clearance: 16px;
   --sticky-stack-offset: calc(
     var(--portfolio-toolbar-current-height) +
-      var(--industry-header-current-height) + var(--anchor-clearance)
+      var(--industry-header-current-height)
   );
   --shell-background: #e9ebef;
   --toolbar-background: rgba(250, 251, 252, 0.94);
@@ -201,6 +200,7 @@ body.dialog-open {
 
 .industry-segmented-control button:focus-visible,
 .portfolio-toolbar button:focus-visible,
+.portfolio-toolbar-toggle:focus-visible,
 .shift-wordmark:focus-visible,
 .project-info-dialog button:focus-visible {
   outline: 3px solid var(--shell-focus);
@@ -256,12 +256,18 @@ body.dialog-open {
   background: var(--toolbar-active);
 }
 
-.portfolio-toolbar[data-expanded="false"] .portfolio-toolbar-toggle svg {
+.portfolio-toolbar-toggle[data-expanded="false"] svg {
   transform: rotate(180deg);
 }
 
-.portfolio-toolbar[data-expanded="false"] .portfolio-toolbar-toggle {
+.portfolio-toolbar-toggle {
   position: fixed;
+  z-index: 110;
+  inset-block-start: 7px;
+  inset-inline-end: clamp(12px, 2vw, 28px);
+}
+
+.portfolio-toolbar-toggle[data-expanded="false"] {
   z-index: 120;
   inset: auto max(12px, env(safe-area-inset-right))
     max(12px, env(safe-area-inset-bottom)) auto;
@@ -278,7 +284,8 @@ body.dialog-open {
   box-shadow: 0 1px 3px rgba(22, 28, 38, 0.1);
 }
 
-.portfolio-toolbar svg {
+.portfolio-toolbar svg,
+.portfolio-toolbar-toggle svg {
   width: 18px;
   height: 18px;
   fill: none;
@@ -1107,9 +1114,9 @@ body.dialog-open {
     grid-row: 1;
   }
 
-  .portfolio-toolbar-toggle {
-    grid-column: 3;
-    grid-row: 1;
+  .portfolio-toolbar-toggle[data-expanded="true"] {
+    inset-block-start: max(5px, env(safe-area-inset-top));
+    inset-inline-end: 12px;
   }
 
   .toolbar-industry-control {
@@ -1230,6 +1237,10 @@ body.dialog-open {
 @media (max-width: 360px) {
   .portfolio-toolbar {
     padding-inline: 8px;
+  }
+
+  .portfolio-toolbar-toggle[data-expanded="true"] {
+    inset-inline-end: 8px;
   }
 
   .toolbar-actions {
@@ -1816,6 +1827,7 @@ body.dialog-open {
 .moru-site a:active,
 .basket-site a:active,
 .portfolio-toolbar button:not([role="tab"]):active,
+.portfolio-toolbar-toggle:active,
 .project-info-header button:active {
   transform: scale(0.96);
 }
@@ -1835,7 +1847,8 @@ body.dialog-open {
   .vectoron-actions a:first-child > span,
   .moru-site a::after,
   .basket-site a,
-  .portfolio-toolbar button {
+  .portfolio-toolbar button,
+  .portfolio-toolbar-toggle {
     transition-duration: 0s;
   }
 
@@ -1847,6 +1860,7 @@ body.dialog-open {
   .moru-site a:active,
   .basket-site a:active,
   .portfolio-toolbar button:not([role="tab"]):active,
+  .portfolio-toolbar-toggle:active,
   .project-info-header button:active {
     transform: none;
   }

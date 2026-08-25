@@ -1,7 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./App.css";
 import "./Shell.css";
-import { PortfolioToolbar } from "./components/PortfolioToolbar";
+import {
+  PortfolioToolbar,
+  PortfolioToolbarToggle,
+} from "./components/PortfolioToolbar";
 import { ProjectInfoDialog } from "./components/ProjectInfoDialog";
 import { industries } from "./config/industries";
 import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
@@ -125,6 +128,9 @@ function App() {
           onThemeChange={selectTheme}
           onViewportChange={setViewport}
           onOpenProjectInfo={() => setProjectInfoOpen(true)}
+        />
+        <PortfolioToolbarToggle
+          expanded={toolbarExpanded}
           onExpandedChange={setToolbarExpanded}
         />
 

@@ -12,7 +12,6 @@ interface PortfolioToolbarProps {
   onThemeChange: (theme: ThemeMode) => void;
   onViewportChange: (viewport: ViewportMode) => void;
   onOpenProjectInfo: () => void;
-  onExpandedChange: (expanded: boolean) => void;
 }
 
 export function PortfolioToolbar({
@@ -25,7 +24,6 @@ export function PortfolioToolbar({
   onThemeChange,
   onViewportChange,
   onOpenProjectInfo,
-  onExpandedChange,
 }: PortfolioToolbarProps) {
   return (
     <header
@@ -114,21 +112,34 @@ export function PortfolioToolbar({
           </button>
         </div>
       </div>
-
-      <button
-        className="portfolio-toolbar-toggle"
-        type="button"
-        aria-expanded={expanded}
-        aria-controls="portfolio-toolbar-controls"
-        aria-label={
-          expanded ? "포트폴리오 도구 모음 접기" : "포트폴리오 도구 모음 펼치기"
-        }
-        title={expanded ? "도구 모음 접기" : "도구 모음 펼치기"}
-        onClick={() => onExpandedChange(!expanded)}
-      >
-        <ToolbarVisibilityIcon />
-      </button>
     </header>
+  );
+}
+
+interface PortfolioToolbarToggleProps {
+  expanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
+}
+
+export function PortfolioToolbarToggle({
+  expanded,
+  onExpandedChange,
+}: PortfolioToolbarToggleProps) {
+  return (
+    <button
+      className="portfolio-toolbar-toggle"
+      data-expanded={expanded}
+      type="button"
+      aria-expanded={expanded}
+      aria-controls="portfolio-toolbar"
+      aria-label={
+        expanded ? "포트폴리오 도구 모음 접기" : "포트폴리오 도구 모음 펼치기"
+      }
+      title={expanded ? "도구 모음 접기" : "도구 모음 펼치기"}
+      onClick={() => onExpandedChange(!expanded)}
+    >
+      <ToolbarVisibilityIcon />
+    </button>
   );
 }
 
