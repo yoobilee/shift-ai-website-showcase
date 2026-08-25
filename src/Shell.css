@@ -1,7 +1,7 @@
 /* Full-screen portfolio shell */
 :root {
   --portfolio-toolbar-expanded-height: 58px;
-  --portfolio-toolbar-collapsed-height: 0px;
+  --portfolio-toolbar-collapsed-height: calc(44px + env(safe-area-inset-top));
   --portfolio-toolbar-current-height: var(--portfolio-toolbar-expanded-height);
   --industry-header-current-height: 72px;
   --sticky-stack-offset: calc(
@@ -269,11 +269,15 @@ body.dialog-open {
 
 .portfolio-toolbar-toggle[data-expanded="false"] {
   z-index: 120;
-  inset: auto max(12px, env(safe-area-inset-right))
-    max(12px, env(safe-area-inset-bottom)) auto;
+  inset: auto;
+  inset-block-start: env(safe-area-inset-top);
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  border-block-start: 0;
+  border-radius: 0 0 12px 12px;
   color: var(--toolbar-text);
   background: var(--toolbar-background);
-  box-shadow: 0 8px 24px rgba(13, 19, 30, 0.2);
+  box-shadow: 0 8px 18px rgba(13, 19, 30, 0.16);
   backdrop-filter: blur(18px) saturate(1.2);
 }
 
@@ -1086,7 +1090,7 @@ body.dialog-open {
     --portfolio-toolbar-expanded-height: calc(
       104px + max(5px, env(safe-area-inset-top))
     );
-    --portfolio-toolbar-collapsed-height: 0px;
+    --portfolio-toolbar-collapsed-height: calc(44px + env(safe-area-inset-top));
   }
 
   .portfolio-toolbar[data-expanded="true"] {

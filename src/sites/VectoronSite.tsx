@@ -94,17 +94,18 @@ export function VectoronSite() {
           </figcaption>
         </figure>
       </section>
-      <section className="vectoron-band" aria-label="벡터론 기술 특징">
+      <section
+        className="vectoron-band section-anchor-target"
+        id="vectoron-product"
+        aria-label="벡터론 기술 특징"
+      >
         <span>01 · Deep vision model</span>
         <span>02 · Edge processing</span>
         <span>03 · Line integration</span>
         <span>ISO 9001 / CE</span>
       </section>
       <section className="vectoron-product">
-        <div
-          className="vectoron-section-title section-anchor-target"
-          id="vectoron-product"
-        >
+        <div className="vectoron-section-title">
           <span>Platform / 01</span>
           <h3>
             한 화면에서 확인하는
@@ -145,13 +146,11 @@ export function VectoronSite() {
         </div>
       </section>
       <section
-        className="vectoron-applications"
+        className="vectoron-applications section-anchor-target"
+        id="vectoron-application"
         aria-labelledby="vectoron-applications-title"
       >
-        <div
-          className="vectoron-application-intro section-anchor-target"
-          id="vectoron-application"
-        >
+        <div className="vectoron-application-intro">
           <span>Application / 02</span>
           <h3 id="vectoron-applications-title">
             생산 환경에 맞춰
@@ -181,7 +180,10 @@ export function VectoronSite() {
           </article>
         </div>
       </section>
-      <section className="vectoron-spec" id="vectoron-spec">
+      <section
+        className="vectoron-spec section-anchor-target"
+        id="vectoron-spec"
+      >
         <div>
           <span>Model</span>
           <strong>VNX-400 Edge</strong>
@@ -196,9 +198,12 @@ export function VectoronSite() {
         </div>
         <a href="#vectoron-contact">전체 사양서 다운로드 ↓</a>
       </section>
-      <section className="vectoron-cta">
+      <section
+        className="vectoron-cta section-anchor-target"
+        id="vectoron-contact"
+      >
         <span>Build a reliable line.</span>
-        <h3 className="section-anchor-target" id="vectoron-contact">
+        <h3>
           귀사의 생산 환경에 맞는
           <br />
           검사 시스템을 설계합니다.

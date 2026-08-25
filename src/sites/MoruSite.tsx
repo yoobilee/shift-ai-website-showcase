@@ -75,10 +75,11 @@ export function MoruSite() {
           <span className="moru-side-orbit" aria-hidden="true" />
         </div>
       </section>
-      <section className="moru-manifesto">
-        <span className="section-anchor-target" id="moru-philosophy">
-          Our philosophy
-        </span>
+      <section
+        className="moru-manifesto section-anchor-target"
+        id="moru-philosophy"
+      >
+        <span>Our philosophy</span>
         <p>
           좋은 공간은 먼저 자신을 드러내지 않습니다.
           <br />
@@ -87,11 +88,11 @@ export function MoruSite() {
           <em>필요한 것만 남깁니다.</em>
         </p>
       </section>
-      <section className="moru-projects">
-        <div
-          className="moru-section-head section-anchor-target"
-          id="moru-projects"
-        >
+      <section
+        className="moru-projects section-anchor-target"
+        id="moru-projects"
+      >
+        <div className="moru-section-head">
           <span>Selected projects</span>
           <span>View all 18 ↗</span>
         </div>
@@ -126,7 +127,7 @@ export function MoruSite() {
           </figure>
         </div>
       </section>
-      <section className="moru-process" id="moru-process">
+      <section className="moru-process section-anchor-target" id="moru-process">
         <div>
           <span>01</span>
           <h3>Observe</h3>
@@ -143,9 +144,9 @@ export function MoruSite() {
           <p>현장에서 디테일을 끝까지 조정합니다.</p>
         </div>
       </section>
-      <section className="moru-cta">
+      <section className="moru-cta section-anchor-target" id="moru-contact">
         <p>Have a space in mind?</p>
-        <h3 className="section-anchor-target" id="moru-contact">
+        <h3>
           Let’s make room
           <br />
           for a new story.
