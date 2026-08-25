@@ -1,0 +1,81 @@
+:root {
+  --page-bg: #eceae4;
+  --page-surface: #f8f7f3;
+  --ink: #151515;
+  --muted: #686860;
+  --line: #cccac2;
+  --accent: #2f53ff;
+  --focus: #2455ff;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --font-sans:
+    Inter, Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", system-ui,
+    sans-serif;
+  --font-serif:
+    Iowan Old Style, "Times New Roman", "Noto Serif KR", Georgia, serif;
+  color: var(--ink);
+  background: var(--page-bg);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+body,
+button,
+a {
+  font-family: inherit;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+button {
+  color: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-position: from-font;
+  text-decoration-thickness: from-font;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+::selection {
+  color: #fff;
+  background: #2f53ff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+@media (forced-colors: active) {
+  button:focus-visible,
+  a:focus-visible {
+    outline-color: Highlight;
+  }
+}
