@@ -74,11 +74,13 @@ export function BasketSite() {
           NEIGHBORS ·
         </span>
       </div>
-      <section className="basket-menu" id="basket-menu">
+      <section className="basket-menu">
         <div className="basket-section-head">
           <div>
             <span>Fresh picks</span>
-            <h3>이번 주의 바스켓</h3>
+            <h3 className="section-anchor-target" id="basket-menu">
+              이번 주의 바스켓
+            </h3>
           </div>
           <a href="#basket-stores">전체 메뉴 보기 ↗</a>
         </div>
@@ -118,7 +120,7 @@ export function BasketSite() {
           </article>
         </div>
       </section>
-      <section className="basket-season" id="basket-season">
+      <section className="basket-season">
         <div className="season-badge">
           LOCAL
           <br />
@@ -126,7 +128,7 @@ export function BasketSite() {
         </div>
         <div>
           <span>August story</span>
-          <h3>
+          <h3 className="section-anchor-target" id="basket-season">
             가까운 농장에서 온<br />
             제철의 맛
           </h3>
@@ -137,10 +139,10 @@ export function BasketSite() {
         </div>
         <a href="#basket-menu">이달의 식재료 이야기 →</a>
       </section>
-      <section className="basket-stores" id="basket-stores">
+      <section className="basket-stores">
         <div>
           <span>We’re open today</span>
-          <h3>
+          <h3 className="section-anchor-target" id="basket-stores">
             지금, 가까운
             <br />
             바스켓 데이로!

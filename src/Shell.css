@@ -15,6 +15,18 @@
   --toolbar-shadow: 0 1px 2px rgba(18, 25, 38, 0.05);
   --shell-focus: #175cff;
   --shell-ease: cubic-bezier(0.77, 0, 0.175, 1);
+  --dialog-background: #f3f0e9;
+  --dialog-surface: #fffdf8;
+  --dialog-text: #25231f;
+  --dialog-secondary-text: #565148;
+  --dialog-caption-text: #726d63;
+  --dialog-border: #c8c2b7;
+  --dialog-border-soft: #d7d2c9;
+  --dialog-control-border: #888278;
+  --dialog-close-hover: #e5dfd4;
+  --dialog-header-background: rgba(243, 240, 233, 0.94);
+  --dialog-backdrop: rgba(8, 10, 14, 0.6);
+  --dialog-shadow: -28px 0 80px rgba(0, 0, 0, 0.25);
 }
 
 :root[data-theme="dark"] {
@@ -27,6 +39,18 @@
   --toolbar-border: #454a53;
   --toolbar-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shell-focus: #8bb5ff;
+  --dialog-background: #1b1d20;
+  --dialog-surface: #272a2f;
+  --dialog-text: #f4f1e8;
+  --dialog-secondary-text: #c2beb3;
+  --dialog-caption-text: #aaa59a;
+  --dialog-border: #6b707a;
+  --dialog-border-soft: #5f646e;
+  --dialog-control-border: #777d88;
+  --dialog-close-hover: #353941;
+  --dialog-header-background: rgba(27, 29, 32, 0.94);
+  --dialog-backdrop: rgba(4, 5, 7, 0.68);
+  --dialog-shadow: -28px 0 80px rgba(0, 0, 0, 0.48);
 }
 
 html {
@@ -253,10 +277,6 @@ body.dialog-open {
   overflow-y: visible;
 }
 
-.brand-site [id] {
-  scroll-margin-block-start: var(--anchor-offset);
-}
-
 /* Project information drawer */
 .project-info-dialog {
   width: min(720px, 92vw);
@@ -266,23 +286,24 @@ body.dialog-open {
   margin: 0 0 0 auto;
   padding: 0;
   border: 0;
-  color: #25231f;
+  color: var(--dialog-text);
   background: transparent;
   overflow: visible;
 }
 
 .project-info-dialog::backdrop {
-  background: rgba(8, 10, 14, 0.64);
+  background: var(--dialog-backdrop);
   backdrop-filter: blur(6px);
 }
 
 .project-info-drawer {
   height: 100%;
-  border-inline-start: 1px solid #c8c2b7;
-  background: #f3f0e9;
-  box-shadow: -28px 0 80px rgba(0, 0, 0, 0.25);
+  border-inline-start: 1px solid var(--dialog-border);
+  background: var(--dialog-background);
+  box-shadow: var(--dialog-shadow);
   overflow-y: auto;
   overscroll-behavior: contain;
+  container: project-info / inline-size;
 }
 
 .project-info-header {
@@ -290,19 +311,23 @@ body.dialog-open {
   z-index: 2;
   inset-block-start: 0;
   min-height: 108px;
-  padding: 24px 22px 20px clamp(24px, 5vw, 52px);
-  border-bottom: 1px solid #c8c2b7;
-  background: rgba(243, 240, 233, 0.94);
+  padding: 24px clamp(24px, 5vw, 52px) 20px;
+  border-bottom: 1px solid var(--dialog-border);
+  background: var(--dialog-header-background);
   backdrop-filter: blur(16px);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: flex-start;
-  justify-content: space-between;
   gap: 24px;
+}
+
+.project-info-header > div {
+  min-width: 0;
 }
 
 .project-info-header span,
 .info-section-number {
-  color: #726d63;
+  color: var(--dialog-caption-text);
   font-size: 12px;
   letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
@@ -313,20 +338,29 @@ body.dialog-open {
   font-size: clamp(22px, 3vw, 34px);
   line-height: 1.15;
   letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 
 .project-info-header button {
-  flex: 0 0 auto;
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid #a9a399;
+  border: 1px solid var(--dialog-control-border);
   border-radius: 50%;
-  color: #25231f;
-  background: #fffdf8;
-  font-size: 27px;
-  line-height: 1;
+  color: var(--dialog-text);
+  background: var(--dialog-surface);
+  display: grid;
+  place-items: center;
   cursor: pointer;
+}
+
+.project-info-header button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
 }
 
 .project-info-content {
@@ -334,10 +368,10 @@ body.dialog-open {
 }
 
 .project-info-lead {
-  max-width: 17ch;
+  width: min(100%, 24ch);
   margin: 0 0 clamp(64px, 10vw, 110px);
   font-family: var(--font-serif);
-  font-size: clamp(34px, 5.5vw, 62px);
+  font-size: clamp(34px, 7cqi, 52px);
   line-height: 1.16;
   letter-spacing: -0.055em;
   text-wrap: balance;
@@ -345,7 +379,7 @@ body.dialog-open {
 
 .project-info-content section {
   padding-block: 30px 42px;
-  border-top: 1px solid #c8c2b7;
+  border-top: 1px solid var(--dialog-border);
   display: grid;
   grid-template-columns: 50px 1fr;
   gap: 18px;
@@ -361,7 +395,7 @@ body.dialog-open {
 .industry-flow-list,
 .ai-workflow-list {
   margin: 0;
-  color: #565148;
+  color: var(--dialog-secondary-text);
   font-size: 15px;
   line-height: 1.75;
 }
@@ -373,12 +407,12 @@ body.dialog-open {
 
 .industry-flow-list div {
   padding-block-end: 18px;
-  border-bottom: 1px solid #d7d2c9;
+  border-bottom: 1px solid var(--dialog-border-soft);
 }
 
 .industry-flow-list dt {
   margin-bottom: 5px;
-  color: #25231f;
+  color: var(--dialog-text);
   font-weight: 750;
 }
 
@@ -392,6 +426,18 @@ body.dialog-open {
 
 .ai-workflow-list li + li {
   margin-top: 9px;
+}
+
+@container project-info (max-width: 520px) {
+  .project-info-lead {
+    width: 100%;
+    margin-block-end: clamp(52px, 16cqi, 72px);
+  }
+
+  .project-info-content section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
 }
 
 /* Industry 01: Vectoron light and dark semantic tokens */
@@ -876,11 +922,14 @@ body.dialog-open {
   .industry-segmented-control button,
   .theme-control button,
   .viewport-control button,
-  .project-info-trigger {
+  .project-info-trigger,
+  .project-info-header button {
     transition:
       color 120ms ease,
       background-color 120ms ease,
-      box-shadow 120ms ease;
+      border-color 120ms ease,
+      box-shadow 120ms ease,
+      transform 120ms ease;
   }
 
   .industry-panel[data-transition="enabled"] {
@@ -935,7 +984,7 @@ body.dialog-open {
 
 @media (max-width: 760px) {
   :root {
-    --portfolio-toolbar-size: 108px;
+    --portfolio-toolbar-size: calc(103px + max(5px, env(safe-area-inset-top)));
   }
 
   .portfolio-toolbar {
@@ -1199,13 +1248,15 @@ body.dialog-open {
 
 .moru-side-meta {
   min-width: 0;
-  grid-column: 1;
-  grid-row: 2;
-  align-self: end;
+  width: 100%;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  align-self: center;
   display: grid;
-  grid-template-columns: minmax(22px, 1fr) auto 44px;
+  grid-template-columns: minmax(24px, 1fr) max-content clamp(34px, 5cqi, 48px);
   align-items: center;
-  gap: 12px;
+  gap: clamp(10px, 1.5cqi, 18px);
+  container-type: inline-size;
 }
 
 .moru-contact,
@@ -1215,6 +1266,8 @@ body.dialog-open {
 
 .moru-side-note {
   justify-self: auto;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .moru-side-line {
@@ -1224,7 +1277,7 @@ body.dialog-open {
 }
 
 .moru-side-orbit {
-  width: 44px;
+  width: 100%;
   aspect-ratio: 1;
   border: 1px solid var(--site-border);
   border-radius: 50%;
@@ -1533,11 +1586,7 @@ body.dialog-open {
   .moru-side-meta {
     grid-column: 1;
     grid-row: 4;
-    grid-template-columns: minmax(20px, 1fr) auto 34px;
-  }
-
-  .moru-side-orbit {
-    width: 34px;
+    grid-template-columns: minmax(20px, 1fr) max-content 34px;
   }
 
   .basket-copy {
@@ -1559,6 +1608,11 @@ body.dialog-open {
     color: var(--toolbar-text);
     background: var(--toolbar-active);
     box-shadow: inset 0 0 0 1px var(--toolbar-border);
+  }
+
+  .project-info-header button:hover {
+    border-color: var(--dialog-text);
+    background: var(--dialog-close-hover);
   }
 
   .vectoron-contact:hover,
@@ -1640,7 +1694,8 @@ body.dialog-open {
 .vectoron-site a:active,
 .moru-site a:active,
 .basket-site a:active,
-.portfolio-toolbar button:active {
+.portfolio-toolbar button:active,
+.project-info-header button:active {
   transform: scale(0.96);
 }
 
@@ -1666,7 +1721,8 @@ body.dialog-open {
   .vectoron-site a:active,
   .moru-site a:active,
   .basket-site a:active,
-  .portfolio-toolbar button:active {
+  .portfolio-toolbar button:active,
+  .project-info-header button:active {
     transform: none;
   }
 

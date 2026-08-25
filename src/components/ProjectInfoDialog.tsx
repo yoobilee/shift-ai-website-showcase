@@ -83,7 +83,9 @@ export function ProjectInfoDialog({ open, onClose }: ProjectInfoDialogProps) {
             aria-label="프로젝트 설명 닫기"
             onClick={onClose}
           >
-            <span aria-hidden="true">×</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 5l14 14M19 5 5 19" />
+            </svg>
           </button>
         </header>
 

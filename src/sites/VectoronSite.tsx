@@ -94,18 +94,17 @@ export function VectoronSite() {
           </figcaption>
         </figure>
       </section>
-      <section
-        className="vectoron-band"
-        id="vectoron-application"
-        aria-label="벡터론 기술 특징"
-      >
+      <section className="vectoron-band" aria-label="벡터론 기술 특징">
         <span>01 · Deep vision model</span>
         <span>02 · Edge processing</span>
         <span>03 · Line integration</span>
         <span>ISO 9001 / CE</span>
       </section>
-      <section className="vectoron-product" id="vectoron-product">
-        <div className="vectoron-section-title">
+      <section className="vectoron-product">
+        <div
+          className="vectoron-section-title section-anchor-target"
+          id="vectoron-product"
+        >
           <span>Platform / 01</span>
           <h3>
             한 화면에서 확인하는
@@ -149,7 +148,10 @@ export function VectoronSite() {
         className="vectoron-applications"
         aria-labelledby="vectoron-applications-title"
       >
-        <div className="vectoron-application-intro">
+        <div
+          className="vectoron-application-intro section-anchor-target"
+          id="vectoron-application"
+        >
           <span>Application / 02</span>
           <h3 id="vectoron-applications-title">
             생산 환경에 맞춰
@@ -194,9 +196,9 @@ export function VectoronSite() {
         </div>
         <a href="#vectoron-contact">전체 사양서 다운로드 ↓</a>
       </section>
-      <section className="vectoron-cta" id="vectoron-contact">
+      <section className="vectoron-cta">
         <span>Build a reliable line.</span>
-        <h3>
+        <h3 className="section-anchor-target" id="vectoron-contact">
           귀사의 생산 환경에 맞는
           <br />
           검사 시스템을 설계합니다.

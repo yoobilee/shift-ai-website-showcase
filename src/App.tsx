@@ -31,6 +31,7 @@ function App() {
   const projectInfoButtonRef = useRef<HTMLButtonElement>(null);
   const industryRef = useRef(industry);
   const pendingHistoryHashRef = useRef<string | null>(null);
+  const restoreInitialHashRef = useRef(true);
   const ActiveSite = siteMap[industry];
   const activeIndustry =
     industries.find((item) => item.id === industry) ?? industries[0];
@@ -38,13 +39,16 @@ function App() {
   useLayoutEffect(() => {
     industryRef.current = industry;
     document.documentElement.dataset.industry = industry;
-    const pendingHash = pendingHistoryHashRef.current;
+    const pendingHash =
+      pendingHistoryHashRef.current ??
+      (restoreInitialHashRef.current ? getValidIndustryHash(industry) : null);
     if (pendingHash) {
       document
         .getElementById(pendingHash)
         ?.scrollIntoView({ behavior: "auto", block: "start" });
-      pendingHistoryHashRef.current = null;
     }
+    pendingHistoryHashRef.current = null;
+    restoreInitialHashRef.current = false;
   }, [industry]);
 
   useEffect(() => {
