@@ -9,7 +9,11 @@ import { BasketSite } from "./sites/BasketSite";
 import { MoruSite } from "./sites/MoruSite";
 import { VectoronSite } from "./sites/VectoronSite";
 import type { IndustryId, ViewportMode } from "./types";
-import { readIndustryFromUrl, writeIndustryToUrl } from "./utils/urlState";
+import {
+  getValidIndustryHash,
+  readIndustryFromUrl,
+  writeIndustryToUrl,
+} from "./utils/urlState";
 
 const siteMap = {
   industrial: VectoronSite,
@@ -25,26 +29,41 @@ function App() {
   const { theme, selectTheme } = useTheme();
   const appContentRef = useRef<HTMLDivElement>(null);
   const projectInfoButtonRef = useRef<HTMLButtonElement>(null);
+  const industryRef = useRef(industry);
+  const pendingHistoryHashRef = useRef<string | null>(null);
   const ActiveSite = siteMap[industry];
   const activeIndustry =
     industries.find((item) => item.id === industry) ?? industries[0];
 
   useLayoutEffect(() => {
+    industryRef.current = industry;
     document.documentElement.dataset.industry = industry;
+    const pendingHash = pendingHistoryHashRef.current;
+    if (pendingHash) {
+      document
+        .getElementById(pendingHash)
+        ?.scrollIntoView({ behavior: "auto", block: "start" });
+      pendingHistoryHashRef.current = null;
+    }
   }, [industry]);
 
   useEffect(() => {
     const initialIndustry = readIndustryFromUrl();
-    const requestedIndustry = new URLSearchParams(window.location.search).get(
-      "industry",
-    );
-    if (requestedIndustry !== initialIndustry) {
-      writeIndustryToUrl(initialIndustry, "replace");
-    }
+    writeIndustryToUrl(initialIndustry, "replace", {
+      preserveValidHash: true,
+    });
 
     const restoreIndustry = () => {
+      const restoredIndustry = readIndustryFromUrl();
+      pendingHistoryHashRef.current =
+        restoredIndustry === industryRef.current
+          ? null
+          : getValidIndustryHash(restoredIndustry);
+      writeIndustryToUrl(restoredIndustry, "replace", {
+        preserveValidHash: true,
+      });
       setTransitionEnabled(true);
-      setIndustry(readIndustryFromUrl());
+      setIndustry(restoredIndustry);
     };
     window.addEventListener("popstate", restoreIndustry);
     return () => window.removeEventListener("popstate", restoreIndustry);

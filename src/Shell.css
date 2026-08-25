@@ -1,5 +1,10 @@
 /* Full-screen portfolio shell */
 :root {
+  --portfolio-toolbar-size: 58px;
+  --anchor-clearance: 16px;
+  --anchor-offset: calc(
+    var(--portfolio-toolbar-size) + var(--anchor-clearance)
+  );
   --shell-background: #e9ebef;
   --toolbar-background: rgba(250, 251, 252, 0.94);
   --toolbar-surface: #eef0f3;
@@ -26,6 +31,7 @@
 
 html {
   background: var(--shell-background);
+  scroll-padding-block-start: var(--anchor-offset);
 }
 
 body {
@@ -219,7 +225,7 @@ body.dialog-open {
   min-width: 0;
   min-height: calc(100svh - 58px);
   margin-inline: auto;
-  overflow: clip;
+  overflow-x: clip;
   outline: none;
   container-type: inline-size;
   background: var(--site-background, #fff);
@@ -242,9 +248,13 @@ body.dialog-open {
   box-shadow: 0 24px 70px rgba(13, 19, 30, 0.24);
 }
 
-.brand-site section,
-.brand-site header {
-  scroll-margin-top: 72px;
+.brand-site {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.brand-site [id] {
+  scroll-margin-block-start: var(--anchor-offset);
 }
 
 /* Project information drawer */
@@ -409,9 +419,26 @@ body.dialog-open {
   --site-text: #0d203d;
   --site-muted: #53657d;
   --site-accent: #145fd7;
-  --site-accent-secondary: #007f91;
+  --site-accent-secondary: #007b8c;
   --site-border: #cbd8e9;
   --site-shadow: 0 22px 55px rgba(42, 66, 102, 0.13);
+  --site-on-accent: #ffffff;
+  --site-accent-hover: #0e4cae;
+  --site-secondary-hover: #e4edf9;
+  --site-focus-ring: #004fb8;
+  --site-disabled-background: #dce5f2;
+  --site-disabled-text: #66758a;
+  --site-control-border: #7187a2;
+}
+
+:root[data-theme="dark"] .vectoron-site {
+  --site-on-accent: #061126;
+  --site-accent-hover: #79a8ff;
+  --site-secondary-hover: #13223a;
+  --site-focus-ring: #8bb6ff;
+  --site-disabled-background: #1b283b;
+  --site-disabled-text: #8999b0;
+  --site-control-border: #607594;
 }
 
 .vectoron-header,
@@ -589,10 +616,9 @@ body.dialog-open {
 }
 
 :root[data-theme="light"] .vectoron-actions a:last-child,
-:root[data-theme="light"] .vectoron-contact,
 :root[data-theme="light"] .vectoron-spec a {
-  border-color: #9fb3cc;
-  color: #183353;
+  border-color: var(--site-control-border);
+  color: var(--site-text);
 }
 
 :root[data-theme="light"] .vectoron-visual {
@@ -667,7 +693,7 @@ body.dialog-open {
   color: var(--site-muted);
 }
 
-.moru-intro h2 em,
+.moru-intro h1 em,
 .moru-manifesto em {
   color: var(--site-accent);
 }
@@ -726,7 +752,7 @@ body.dialog-open {
   --site-surface: #fff9e7;
   --site-text: #27241f;
   --site-muted: #665e51;
-  --site-accent: #d94732;
+  --site-accent: #c43827;
   --site-accent-secondary: #246a40;
   --site-border: #27241f;
   --b-yellow: #f6c933;
@@ -734,6 +760,9 @@ body.dialog-open {
   --b-green: var(--site-accent-secondary);
   --b-cream: var(--site-background);
   --b-ink: var(--site-text);
+  --site-on-accent: #ffffff;
+  --site-on-yellow: #27241f;
+  --site-interaction-shadow: #27241f;
   color: var(--site-text);
   background: var(--site-background);
 }
@@ -747,6 +776,9 @@ body.dialog-open {
   --site-accent-secondary: #395f43;
   --site-border: #f2dba9;
   --b-yellow: #e9b93f;
+  --site-on-accent: #182a20;
+  --site-on-yellow: #182a20;
+  --site-interaction-shadow: #0d1711;
 }
 
 .basket-header nav a,
@@ -846,9 +878,9 @@ body.dialog-open {
   .viewport-control button,
   .project-info-trigger {
     transition:
-      color 160ms ease,
-      background-color 160ms ease,
-      box-shadow 160ms ease;
+      color 120ms ease,
+      background-color 120ms ease,
+      box-shadow 120ms ease;
   }
 
   .industry-panel[data-transition="enabled"] {
@@ -902,6 +934,10 @@ body.dialog-open {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --portfolio-toolbar-size: 108px;
+  }
+
   .portfolio-toolbar {
     min-height: 108px;
     padding: max(5px, env(safe-area-inset-top)) 12px 7px;
@@ -969,11 +1005,6 @@ body.dialog-open {
     box-shadow: none;
   }
 
-  .brand-site section,
-  .brand-site header {
-    scroll-margin-top: 118px;
-  }
-
   .project-info-dialog {
     width: 100%;
   }
@@ -999,7 +1030,7 @@ body.dialog-open {
   }
 
   .vectoron-copy {
-    min-height: 620px;
+    min-height: auto;
   }
 
   .vectoron-applications {
@@ -1082,5 +1113,573 @@ body.dialog-open {
   .theme-control button[aria-pressed="true"],
   .viewport-control button[aria-pressed="true"] {
     border: 2px solid Highlight;
+  }
+}
+
+/* Reflow fixes and brand-specific interaction states */
+[data-theme-changing="true"] *,
+[data-theme-changing="true"] *::before,
+[data-theme-changing="true"] *::after {
+  transition-duration: 0s !important;
+}
+
+.vectoron-visual {
+  margin: 0;
+  display: grid;
+  grid-template-rows: minmax(420px, 1fr) auto;
+}
+
+.vectoron-visual-canvas {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.vectoron-telemetry {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 14px;
+  border-top: 1px solid var(--site-border);
+  background: color-mix(in srgb, var(--site-surface) 92%, transparent);
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) minmax(130px, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.vectoron-telemetry .readout,
+.vectoron-telemetry .axis {
+  position: static;
+  inset: auto;
+}
+
+.vectoron-telemetry .readout {
+  min-width: 0;
+  color: var(--site-text);
+  background: var(--site-surface);
+}
+
+.vectoron-telemetry .axis {
+  white-space: nowrap;
+}
+
+.vectoron-contact,
+.vectoron-actions a:first-child,
+.vectoron-cta a {
+  border: 1px solid var(--site-accent);
+  color: var(--site-on-accent);
+  background: var(--site-accent);
+}
+
+.vectoron-contact span,
+.vectoron-actions a:first-child span {
+  color: inherit;
+}
+
+.vectoron-actions a:last-child,
+.vectoron-spec a {
+  border: 1px solid var(--site-control-border);
+  color: var(--site-text);
+  background: var(--site-surface);
+}
+
+.vectoron-site :is(a, button):focus-visible {
+  outline: 3px solid var(--site-focus-ring);
+  outline-offset: 3px;
+}
+
+.vectoron-site :is(a, button):is(:disabled, [aria-disabled="true"]) {
+  border-color: var(--site-control-border);
+  color: var(--site-disabled-text);
+  background: var(--site-disabled-background);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.moru-side-meta {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  display: grid;
+  grid-template-columns: minmax(22px, 1fr) auto 44px;
+  align-items: center;
+  gap: 12px;
+}
+
+.moru-contact,
+.moru-cta a {
+  border-bottom: 0;
+}
+
+.moru-side-note {
+  justify-self: auto;
+}
+
+.moru-side-line {
+  width: 100%;
+  border-top: 1px solid var(--site-border);
+  pointer-events: none;
+}
+
+.moru-side-orbit {
+  width: 44px;
+  aspect-ratio: 1;
+  border: 1px solid var(--site-border);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.basket-sticker {
+  width: clamp(76px, 7cqi, 92px);
+  height: auto;
+  aspect-ratio: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+  color: var(--site-on-accent);
+  background: var(--site-accent);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.basket-sticker strong {
+  font-size: clamp(20px, 2.2cqi, 28px);
+  line-height: 0.95;
+}
+
+.basket-order {
+  color: var(--site-on-yellow);
+}
+
+.basket-actions a:first-child {
+  color: var(--site-on-accent);
+  background: var(--site-accent);
+}
+
+.basket-marquee {
+  color: var(--site-on-accent);
+}
+
+.menu-art {
+  color: #27241f;
+}
+
+.basket-site :is(a, button):focus-visible {
+  outline: 3px solid var(--site-text);
+  outline-offset: 3px;
+}
+
+.basket-site :is(a, button):is(:disabled, [aria-disabled="true"]) {
+  opacity: 0.58;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.moru-site :is(a, button):focus-visible {
+  outline: 3px solid var(--site-accent);
+  outline-offset: 3px;
+}
+
+.moru-site :is(a, button):is(:disabled, [aria-disabled="true"]) {
+  color: var(--site-muted);
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+@container (max-width: 900px) {
+  .vectoron-header,
+  .moru-header {
+    height: auto;
+    min-height: 64px;
+    padding: 8px 20px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+  }
+
+  .vectoron-header nav,
+  .moru-header nav {
+    display: none;
+  }
+
+  .vectoron-hero {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vectoron-copy {
+    min-height: auto;
+    padding: clamp(48px, 8cqi, 76px) clamp(22px, 7cqi, 54px);
+    border-inline-end: 0;
+  }
+
+  .vectoron-copy h1 {
+    max-width: 13ch;
+    font-size: clamp(34px, 7cqi, 54px);
+    line-height: 1.08;
+    text-wrap: pretty;
+  }
+
+  .vectoron-copy > p {
+    max-width: 52ch;
+  }
+
+  .vectoron-actions {
+    flex-wrap: wrap;
+  }
+
+  .vectoron-metrics {
+    margin-top: clamp(52px, 10cqi, 80px);
+  }
+
+  .vectoron-visual {
+    min-height: 0;
+    border-top: 1px solid var(--site-border);
+    grid-template-rows: auto auto;
+  }
+
+  .vectoron-visual-canvas {
+    min-height: clamp(360px, 62cqi, 520px);
+  }
+
+  .vectoron-telemetry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vectoron-telemetry .axis {
+    justify-self: start;
+  }
+
+  .vectoron-product,
+  .vectoron-applications {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vectoron-application-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .moru-hero {
+    min-height: 0;
+    padding: clamp(44px, 7cqi, 68px) clamp(20px, 5cqi, 40px)
+      clamp(64px, 9cqi, 84px);
+    grid-template-columns: minmax(0, 1.55fr) minmax(180px, 0.75fr);
+    grid-template-rows: auto auto auto;
+    gap: 34px 22px;
+    overflow: visible;
+  }
+
+  .moru-intro {
+    min-width: 0;
+    padding-top: 0;
+    grid-column: 1 / -1;
+  }
+
+  .moru-intro h1 {
+    max-width: 10ch;
+    margin: 42px 0 24px;
+    font-size: clamp(56px, 10cqi, 76px);
+    line-height: 0.98;
+  }
+
+  .moru-photo--main {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .moru-photo--detail {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0;
+  }
+
+  .moru-side-meta {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .moru-side-note {
+    display: block;
+    margin: 0;
+  }
+}
+
+@container (max-width: 800px) {
+  .basket-header {
+    height: auto;
+    min-height: 64px;
+    padding: 8px 18px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+  }
+
+  .basket-header nav,
+  .basket-banner span:last-child {
+    display: none;
+  }
+
+  .basket-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .basket-copy {
+    min-height: auto;
+    padding: clamp(46px, 8cqi, 66px) clamp(22px, 6cqi, 46px);
+    border-inline-end: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 16px;
+  }
+
+  .basket-sticker {
+    position: static;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    justify-self: end;
+  }
+
+  .basket-copy > p:first-of-type {
+    grid-column: 1;
+    align-self: center;
+  }
+
+  .basket-copy h1,
+  .basket-description,
+  .basket-actions,
+  .basket-rating {
+    grid-column: 1 / -1;
+  }
+
+  .basket-copy h1 {
+    margin-top: 24px;
+  }
+
+  .basket-visual {
+    min-height: clamp(420px, 72cqi, 560px);
+    border-top: 2px solid var(--site-border);
+  }
+}
+
+@container (max-width: 520px) {
+  .vectoron-copy h1 {
+    font-size: clamp(30px, 9cqi, 40px);
+  }
+
+  .vectoron-actions {
+    display: grid;
+  }
+
+  .vectoron-metrics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .vectoron-metrics div,
+  .vectoron-metrics div + div {
+    padding: 0 0 18px;
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--site-border);
+  }
+
+  .vectoron-metrics div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .vectoron-visual-canvas {
+    min-height: 360px;
+  }
+
+  .vectoron-telemetry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vectoron-telemetry .axis {
+    display: none;
+  }
+
+  .vectoron-application-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .moru-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .moru-intro h1 {
+    font-size: clamp(48px, 18cqi, 62px);
+  }
+
+  .moru-photo--main {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .moru-photo--detail {
+    width: 58%;
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: end;
+  }
+
+  .moru-side-meta {
+    grid-column: 1;
+    grid-row: 4;
+    grid-template-columns: minmax(20px, 1fr) auto 34px;
+  }
+
+  .moru-side-orbit {
+    width: 34px;
+  }
+
+  .basket-copy {
+    min-height: auto;
+  }
+
+  .basket-sticker {
+    width: 76px;
+    height: auto;
+    inset: auto;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .industry-segmented-control button:hover,
+  .theme-control button:hover,
+  .viewport-control button:hover,
+  .project-info-trigger:hover {
+    color: var(--toolbar-text);
+    background: var(--toolbar-active);
+    box-shadow: inset 0 0 0 1px var(--toolbar-border);
+  }
+
+  .vectoron-contact:hover,
+  .vectoron-actions a:first-child:hover,
+  .vectoron-cta a:hover {
+    border-color: var(--site-accent-hover);
+    color: var(--site-on-accent);
+    background: var(--site-accent-hover);
+  }
+
+  .vectoron-actions a:last-child:hover,
+  .vectoron-spec a:hover {
+    border-color: var(--site-accent);
+    background: var(--site-secondary-hover);
+  }
+
+  .vectoron-contact:hover > span,
+  .vectoron-actions a:first-child:hover > span {
+    transform: translateX(3px);
+  }
+
+  .moru-header nav a:hover::after,
+  .moru-contact:hover::after,
+  .moru-cta a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .basket-order:hover,
+  .basket-actions a:first-child:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0 var(--site-interaction-shadow);
+  }
+}
+
+.vectoron-site a,
+.vectoron-contact > span,
+.vectoron-actions a:first-child > span,
+.basket-site a,
+.moru-site a::after {
+  transition-duration: 120ms;
+  transition-timing-function: ease;
+}
+
+.vectoron-site a,
+.basket-site a {
+  transition-property:
+    color, background-color, border-color, box-shadow, transform;
+}
+
+.vectoron-contact > span,
+.vectoron-actions a:first-child > span {
+  display: inline-block;
+  transition-property: transform;
+}
+
+.moru-header nav a,
+.moru-contact,
+.moru-cta a {
+  position: relative;
+}
+
+.moru-header nav a::after,
+.moru-contact::after,
+.moru-cta a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 2px;
+  border-top: 1px solid currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition-property: transform;
+}
+
+.moru-contact::after,
+.moru-cta a::after {
+  transform: scaleX(0.28);
+}
+
+.vectoron-site a:active,
+.moru-site a:active,
+.basket-site a:active,
+.portfolio-toolbar button:active {
+  transform: scale(0.96);
+}
+
+.toolbar-actions button:disabled,
+.industry-segmented-control button:disabled {
+  color: var(--toolbar-muted);
+  background: var(--toolbar-surface);
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vectoron-site a,
+  .vectoron-contact > span,
+  .vectoron-actions a:first-child > span,
+  .moru-site a::after,
+  .basket-site a,
+  .portfolio-toolbar button {
+    transition-duration: 0s;
+  }
+
+  .vectoron-site a:active,
+  .moru-site a:active,
+  .basket-site a:active,
+  .portfolio-toolbar button:active {
+    transform: none;
+  }
+
+  .vectoron-contact:hover > span,
+  .vectoron-actions a:first-child:hover > span,
+  .basket-order:hover,
+  .basket-actions a:first-child:hover {
+    transform: none;
+  }
+
+  .moru-header nav a::after,
+  .moru-contact::after,
+  .moru-cta a::after {
+    transform: scaleX(1);
   }
 }

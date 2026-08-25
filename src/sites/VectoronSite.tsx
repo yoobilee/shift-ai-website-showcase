@@ -61,34 +61,38 @@ export function VectoronSite() {
             </div>
           </dl>
         </div>
-        <div
-          className="vectoron-visual"
-          role="img"
-          aria-label="생산 라인의 부품을 스캔하는 AI 비전 검사 장비 시각화"
-        >
-          <div className="technical-grid" />
-          <div className="scan-head">
-            <span>VNX</span>
-            <i />
+        <figure className="vectoron-visual">
+          <div
+            className="vectoron-visual-canvas"
+            role="img"
+            aria-label="생산 라인의 부품을 스캔하는 AI 비전 검사 장비 시각화"
+          >
+            <div className="technical-grid" />
+            <div className="scan-head">
+              <span>VNX</span>
+              <i />
+            </div>
+            <div className="scan-beam" />
+            <div className="scan-object">
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
           </div>
-          <div className="scan-beam" />
-          <div className="scan-object">
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className="readout readout--top">
-            <span>Defect map</span>
-            <strong>PASS</strong>
-          </div>
-          <div className="readout readout--bottom">
-            <span>Latency</span>
-            <strong>8.4 ms</strong>
-          </div>
-          <span className="axis axis--x">X 240.08</span>
-          <span className="axis axis--y">Y 118.42</span>
-        </div>
+          <figcaption className="vectoron-telemetry">
+            <div className="readout">
+              <span>Defect map</span>
+              <strong>PASS</strong>
+            </div>
+            <div className="readout">
+              <span>Latency</span>
+              <strong>8.4 ms</strong>
+            </div>
+            <span className="axis">X 240.08</span>
+            <span className="axis">Y 118.42</span>
+          </figcaption>
+        </figure>
       </section>
       <section
         className="vectoron-band"

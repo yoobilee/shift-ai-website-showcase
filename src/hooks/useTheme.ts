@@ -11,8 +11,13 @@ export function useTheme() {
   }, [theme]);
 
   const selectTheme = (nextTheme: ThemeMode) => {
+    const root = document.documentElement;
+    root.dataset.themeChanging = "true";
     setTheme(nextTheme);
     saveTheme(nextTheme);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => delete root.dataset.themeChanging);
+    });
   };
 
   return { theme, selectTheme };

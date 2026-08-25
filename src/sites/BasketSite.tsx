@@ -27,11 +27,9 @@ export function BasketSite() {
       <section className="basket-hero" id="basket-home">
         <div className="basket-copy">
           <span className="basket-sticker">
-            SEASON
-            <br />
+            <span>SEASON</span>
             <strong>08</strong>
-            <br />
-            LIMITED
+            <span>LIMITED</span>
           </span>
           <p>Fresh from the neighborhood.</p>
           <h1>

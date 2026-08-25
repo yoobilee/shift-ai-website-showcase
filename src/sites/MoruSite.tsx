@@ -65,11 +65,15 @@ export function MoruSite() {
             <i>Stone / Lime plaster</i>
           </figcaption>
         </figure>
-        <p className="moru-side-note">
-          Selected works
-          <br />
-          2023—2026
-        </p>
+        <div className="moru-side-meta">
+          <span className="moru-side-line" aria-hidden="true" />
+          <p className="moru-side-note">
+            Selected works
+            <br />
+            2023—2026
+          </p>
+          <span className="moru-side-orbit" aria-hidden="true" />
+        </div>
       </section>
       <section className="moru-manifesto" id="moru-philosophy">
         <span>Our philosophy</span>
