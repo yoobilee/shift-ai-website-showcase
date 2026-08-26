@@ -39,7 +39,6 @@
   --device-frame-border: #b7bdc6;
   --device-frame-detail: #737a84;
   --device-screen-border: #c5cad1;
-  --device-scroll-thumb: rgba(68, 75, 84, 0.48);
   --device-frame-shadow: 0 28px 70px rgba(20, 27, 38, 0.2);
 }
 
@@ -87,7 +86,6 @@
   --device-frame-border: #565c65;
   --device-frame-detail: #a3a9b2;
   --device-screen-border: #5d626a;
-  --device-scroll-thumb: rgba(226, 230, 235, 0.48);
   --device-frame-shadow: 0 28px 76px rgba(0, 0, 0, 0.42);
 }
 
@@ -552,26 +550,15 @@ body.dialog-open {
     overflow-y: auto;
     overscroll-behavior: contain;
     scroll-padding-block-start: 0;
-    scrollbar-color: var(--device-scroll-thumb) transparent;
-    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     scrollbar-gutter: auto;
   }
 
   .showcase-stage[data-viewport="mobile"] .industry-panel::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-
-  .showcase-stage[data-viewport="mobile"]
-    .industry-panel::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .showcase-stage[data-viewport="mobile"]
-    .industry-panel::-webkit-scrollbar-thumb {
-    border: 0;
-    border-radius: 999px;
-    background: var(--device-scroll-thumb);
+    width: 0;
+    height: 0;
+    display: none;
   }
 
   .showcase-stage[data-viewport="mobile"]
@@ -579,11 +566,6 @@ body.dialog-open {
     width: 0;
     height: 0;
     display: none;
-  }
-
-  .showcase-stage[data-viewport="mobile"]
-    .industry-panel::-webkit-scrollbar-corner {
-    background: transparent;
   }
 
   .showcase-stage[data-viewport="mobile"] .mobile-screen-controls {
@@ -601,10 +583,11 @@ body.dialog-open {
     .scroll-to-top-button {
     position: absolute;
     z-index: 1;
-    inset-inline-end: 14px;
-    inset-block-end: 14px;
-    right: auto;
-    bottom: auto;
+    inset-block-start: auto;
+    inset-inline-start: auto;
+    inset-inline-end: 16px;
+    inset-block-end: 16px;
+    margin: 0;
     pointer-events: none;
   }
 
@@ -650,8 +633,8 @@ body.dialog-open {
 .scroll-to-top-button {
   position: fixed;
   z-index: 90;
-  right: max(20px, env(safe-area-inset-right));
-  bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
+  inset-inline-end: max(20px, env(safe-area-inset-right));
+  inset-block-end: max(20px, calc(env(safe-area-inset-bottom) + 12px));
   width: 48px;
   height: 48px;
   padding: 0;
