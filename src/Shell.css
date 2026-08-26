@@ -264,36 +264,27 @@ body.dialog-open {
 }
 
 .portfolio-toolbar-toggle {
+  position: fixed;
+  z-index: 110;
+  inset: auto;
+  inset-block-start: max(
+    var(--portfolio-toolbar-current-height),
+    env(safe-area-inset-top)
+  );
+  inset-inline-start: 50%;
   width: 44px;
   min-width: 44px;
   min-height: 44px;
-  border: 1px solid var(--toolbar-border);
-  border-radius: 12px;
-  color: var(--toolbar-text);
-  background: var(--toolbar-active);
-}
-
-.portfolio-toolbar-toggle {
-  position: fixed;
-  z-index: 110;
-  inset-block-start: 7px;
-  inset-inline-end: clamp(12px, 2vw, 28px);
-}
-
-.portfolio-toolbar-toggle[data-expanded="false"] {
-  z-index: 120;
-  inset: auto;
-  inset-block-start: env(safe-area-inset-top);
-  inset-inline-start: 50%;
   translate: -50% 0;
   border: 0;
+  border-radius: 12px;
   color: var(--toolbar-text);
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
 }
 
-.portfolio-toolbar-toggle[data-expanded="false"]::before {
+.portfolio-toolbar-toggle::before {
   content: "";
   position: absolute;
   inset-block-start: 0;
@@ -308,17 +299,21 @@ body.dialog-open {
   transform: translateX(-50%);
 }
 
-.portfolio-toolbar-toggle[data-expanded="false"] svg {
+.portfolio-toolbar-toggle svg {
   position: absolute;
   z-index: 1;
   inset-block-start: 0;
   inset-inline-start: 50%;
   width: 16px;
   height: 16px;
+  transform: translateX(-50%);
+}
+
+.portfolio-toolbar-toggle[data-expanded="false"] svg {
   transform: translateX(-50%) rotate(180deg);
 }
 
-.portfolio-toolbar-toggle[data-expanded="false"]:focus-visible {
+.portfolio-toolbar-toggle:focus-visible {
   outline-offset: -3px;
 }
 
@@ -329,10 +324,13 @@ body.dialog-open {
   box-shadow: 0 1px 3px rgba(22, 28, 38, 0.1);
 }
 
-.portfolio-toolbar svg,
-.portfolio-toolbar-toggle svg {
+.portfolio-toolbar svg {
   width: 18px;
   height: 18px;
+}
+
+.portfolio-toolbar svg,
+.portfolio-toolbar-toggle svg {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -401,17 +399,22 @@ body.dialog-open {
   background: var(--site-background);
 }
 
+:root .brand-site > header {
+  height: max(var(--industry-header-layout-height), 84px);
+  min-height: max(var(--industry-header-layout-height), 84px);
+  padding-block: 0;
+  align-items: end;
+}
+
 :root[data-toolbar-state="collapsed"] .brand-site > header {
   height: max(
     var(--industry-header-layout-height),
-    calc(86px + env(safe-area-inset-top))
+    calc(84px + env(safe-area-inset-top))
   );
   min-height: max(
     var(--industry-header-layout-height),
-    calc(86px + env(safe-area-inset-top))
+    calc(84px + env(safe-area-inset-top))
   );
-  padding-block: 0;
-  align-items: end;
 }
 
 /* Project information drawer */
@@ -1172,11 +1175,6 @@ body.dialog-open {
     grid-row: 1;
   }
 
-  .portfolio-toolbar-toggle[data-expanded="true"] {
-    inset-block-start: max(5px, env(safe-area-inset-top));
-    inset-inline-end: 12px;
-  }
-
   .toolbar-industry-control {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -1295,10 +1293,6 @@ body.dialog-open {
 @media (max-width: 360px) {
   .portfolio-toolbar {
     padding-inline: 8px;
-  }
-
-  .portfolio-toolbar-toggle[data-expanded="true"] {
-    inset-inline-end: 8px;
   }
 
   .toolbar-actions {
@@ -1800,12 +1794,12 @@ body.dialog-open {
     box-shadow: inset 0 0 0 1px var(--toolbar-border);
   }
 
-  .portfolio-toolbar-toggle[data-expanded="false"]:hover {
+  .portfolio-toolbar-toggle:hover {
     background: transparent;
     box-shadow: none;
   }
 
-  .portfolio-toolbar-toggle[data-expanded="false"]:hover::before {
+  .portfolio-toolbar-toggle:hover::before {
     background: var(--toolbar-active);
   }
 
