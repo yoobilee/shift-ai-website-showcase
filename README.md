@@ -11,9 +11,10 @@
 
 ## 대표 화면
 
-![SHIFT 산업기술·B2B 대표 화면](docs/showcase-overview.png)
-
-현재 저장소에는 산업기술·B2B 대표 화면이 포함되어 있습니다. 인테리어·공간과 로컬 F&B를 포함한 업종별 화면은 배포 사이트에서 직접 전환해 확인할 수 있습니다.
+|                                                                 산업기술·B2B<br>VECTORON SYSTEMS                                                                 |                                                            인테리어·공간<br>MORU SPACE                                                            |                                                               로컬 F&B<br>BASKET DAY DELI                                                               |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [![VECTORON SYSTEMS](docs/screenshots/vectoron-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=industrial) | [![MORU SPACE](docs/screenshots/moru-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=space) | [![BASKET DAY DELI](docs/screenshots/basket-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=food) |
+|                                                                      정보 검증 → 견적 문의                                                                       |                                                               감도 탐색 → 상담 예약                                                               |                                                                  메뉴 발견 → 매장 방문                                                                  |
 
 <details>
 <summary>목차 펼치기</summary>
@@ -196,7 +197,7 @@ src/
 docs/
 ├── ai-asset-log.md
 ├── design-rationale.md
-└── showcase-overview.png
+└── screenshots/              # 업종별 대표 화면 3개
 vercel.json                  # 세부 경로 직접 접속용 SPA rewrite
 ```
 
