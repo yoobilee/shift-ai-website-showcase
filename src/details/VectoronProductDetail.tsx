@@ -126,7 +126,6 @@ export function VectoronProductDetail({
             className="vectoron-spec-table"
             role="region"
             aria-label="VNX-400 제품 사양표"
-            tabIndex={0}
           >
             <table>
               <tbody>

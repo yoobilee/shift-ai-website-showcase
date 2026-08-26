@@ -984,12 +984,60 @@
     padding-inline: 18px;
   }
 
-  .vectoron-detail-hero {
-    min-height: 0;
+  .vectoron-detail-performance,
+  .vectoron-detail-specs,
+  .vectoron-detail-deployment,
+  .vectoron-detail-cta,
+  .moru-detail-philosophy,
+  .moru-detail-gallery,
+  .moru-detail-materials,
+  .moru-detail-process,
+  .moru-detail-cta,
+  .basket-detail-menu,
+  .basket-detail-ingredients,
+  .basket-detail-visit,
+  .basket-detail-footer-cta {
+    padding-block: var(--mobile-section-space);
   }
 
-  .vectoron-detail-intro h1 {
-    font-size: clamp(43px, 18vw, 68px);
+  .vectoron-detail-intro h1,
+  .moru-detail-title h1,
+  .basket-detail-copy h1 {
+    font-size: var(--mobile-display-detail);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .detail-section-heading h2,
+  .vectoron-detail-cta h2,
+  .moru-detail-philosophy p,
+  .moru-detail-materials h2,
+  .moru-detail-cta h2,
+  .basket-detail-menu h2,
+  .basket-detail-ingredients h2,
+  .basket-detail-visit h2,
+  .basket-detail-footer-cta h2 {
+    font-size: var(--mobile-display-section);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .vectoron-detail-intro > p:last-of-type,
+  .vectoron-detail-deployment p,
+  .moru-detail-title > p:last-child,
+  .moru-detail-process p,
+  .basket-detail-copy > p,
+  .basket-detail-menu > div:first-child > p,
+  .basket-detail-menu-cards p,
+  .basket-visit-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .vectoron-detail-hero {
+    min-height: 0;
+    padding-block: 36px var(--mobile-section-space);
   }
 
   .vectoron-product-visual {
@@ -997,25 +1045,82 @@
   }
 
   .vectoron-spec-table {
-    margin-inline: -18px;
-    padding-inline: 18px;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow-x: visible;
+  }
+
+  .vectoron-spec-table table,
+  .vectoron-spec-table tbody,
+  .vectoron-spec-table tr,
+  .vectoron-spec-table th,
+  .vectoron-spec-table td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .vectoron-spec-table tbody {
+    display: grid;
+  }
+
+  .vectoron-spec-table tr {
+    padding-block: 18px;
+    border-bottom: 1px solid var(--site-border);
+  }
+
+  .vectoron-spec-table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .vectoron-spec-table th,
+  .vectoron-spec-table td {
+    padding: 0;
+    border: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .vectoron-spec-table th {
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .vectoron-spec-table td {
+    font-size: 16px;
   }
 
   .moru-detail-opening figure {
     grid-column: auto;
   }
 
-  .moru-detail-title h1 {
-    font-size: clamp(48px, 17vw, 76px);
+  .moru-detail-opening {
+    padding-block: 34px var(--mobile-section-space);
   }
 
   .moru-detail-gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 12px;
   }
 
   .moru-detail-gallery figure:last-child {
-    width: 78%;
-    margin: 0 0 0 auto;
+    width: 100%;
+    margin: 0;
+  }
+
+  .moru-detail-gallery img,
+  .moru-detail-gallery figure:last-child img {
+    width: 100%;
+    aspect-ratio: 0.82;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .moru-detail-gallery figcaption {
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
   }
 
   .moru-detail-materials dl > div {
@@ -1026,8 +1131,8 @@
     min-height: 410px;
   }
 
-  .basket-detail-copy h1 {
-    font-size: clamp(54px, 19vw, 82px);
+  .basket-detail-copy {
+    padding-block: var(--mobile-section-space) 34px;
   }
 
   .basket-detail-ingredients,
