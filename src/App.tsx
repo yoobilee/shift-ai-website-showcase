@@ -2,16 +2,20 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./App.css";
 import "./Shell.css";
 import "./DetailPages.css";
+import "./Motion.css";
 import {
   PortfolioToolbar,
   PortfolioToolbarToggle,
 } from "./components/PortfolioToolbar";
 import { ProjectInfoDialog } from "./components/ProjectInfoDialog";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import { industries } from "./config/industries";
 import { BasketSeasonDetail } from "./details/BasketSeasonDetail";
 import { MoruProjectDetail } from "./details/MoruProjectDetail";
 import { VectoronProductDetail } from "./details/VectoronProductDetail";
 import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
+import { useScrollReveal } from "./hooks/useScrollReveal";
+import { useScrollToTop } from "./hooks/useScrollToTop";
 import { useTheme } from "./hooks/useTheme";
 import { BasketSite } from "./sites/BasketSite";
 import { MoruSite } from "./sites/MoruSite";
@@ -88,6 +92,11 @@ function App() {
     industryPanelRef,
     `${industry}:${route.key}`,
     toolbarExpanded,
+  );
+  useScrollReveal(industryPanelRef, `${industry}:${route.key}`);
+  const { visible: scrollToTopVisible, scrollToTop } = useScrollToTop(
+    industryPanelRef,
+    `${industry}:${route.key}:${viewport}`,
   );
 
   useLayoutEffect(() => {
@@ -253,27 +262,46 @@ function App() {
             route.kind === "detail" ? "세부 페이지" : "홈페이지"
           } 미리보기`}
         >
-          <div
-            ref={industryPanelRef}
-            key={`${industry}:${route.key}`}
-            id={activeIndustry.panelId}
-            className="industry-panel"
-            data-transition={transitionEnabled ? "enabled" : "disabled"}
-            role="tabpanel"
-            aria-labelledby={`industry-tab-${industry}`}
-            tabIndex={0}
-          >
-            {route.kind === "detail" ? (
-              route.detailPage === "vnx-400" ? (
-                <VectoronProductDetail onNavigate={navigateTo} />
-              ) : route.detailPage === "serene-house" ? (
-                <MoruProjectDetail onNavigate={navigateTo} />
-              ) : (
-                <BasketSeasonDetail onNavigate={navigateTo} />
-              )
-            ) : (
-              <ActiveSite onNavigate={navigateTo} />
-            )}
+          <div className="mobile-device-frame">
+            <span
+              className="mobile-device-decoration mobile-device-speaker"
+              aria-hidden="true"
+            />
+            <div className="mobile-device-screen">
+              <div
+                ref={industryPanelRef}
+                key={`${industry}:${route.key}`}
+                id={activeIndustry.panelId}
+                className="industry-panel"
+                data-transition={transitionEnabled ? "enabled" : "disabled"}
+                role="tabpanel"
+                aria-labelledby={`industry-tab-${industry}`}
+                tabIndex={0}
+              >
+                {route.kind === "detail" ? (
+                  route.detailPage === "vnx-400" ? (
+                    <VectoronProductDetail onNavigate={navigateTo} />
+                  ) : route.detailPage === "serene-house" ? (
+                    <MoruProjectDetail onNavigate={navigateTo} />
+                  ) : (
+                    <BasketSeasonDetail onNavigate={navigateTo} />
+                  )
+                ) : (
+                  <ActiveSite onNavigate={navigateTo} />
+                )}
+              </div>
+              <div className="mobile-screen-controls">
+                <ScrollToTopButton
+                  visible={scrollToTopVisible && !projectInfoOpen}
+                  viewport={viewport}
+                  onActivate={scrollToTop}
+                />
+              </div>
+            </div>
+            <span
+              className="mobile-device-decoration mobile-device-home-indicator"
+              aria-hidden="true"
+            />
           </div>
         </main>
       </div>

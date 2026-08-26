@@ -70,7 +70,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
               도심 주거 프로젝트입니다.
             </p>
           </div>
-          <figure>
+          <figure data-reveal="image">
             <img
               src={moruHero}
               width="1402"
@@ -82,7 +82,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
           </figure>
         </section>
 
-        <section className="moru-detail-philosophy">
+        <section className="moru-detail-philosophy" data-reveal="block">
           <span>01 — Spatial philosophy</span>
           <p>
             벽을 더 세우기보다 빛과 시선이 머무는 경계를 조율했습니다.
@@ -92,6 +92,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
 
         <section
           className="moru-detail-gallery"
+          data-reveal="gallery"
           aria-label="프로젝트 이미지 갤러리"
         >
           <figure className="moru-detail-gallery-main">
@@ -116,7 +117,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
           </figure>
         </section>
 
-        <section className="moru-detail-materials">
+        <section className="moru-detail-materials" data-reveal="block">
           <div>
             <span>02 — Material palette</span>
             <h2>시간이 지나며 깊어지는 재료</h2>
@@ -143,7 +144,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
 
         <section className="moru-detail-process">
           <span>03 — Process</span>
-          <div>
+          <div data-reveal="stagger">
             <article>
               <strong>Observe</strong>
               <p>가족의 이동과 채광을 일주일 단위로 기록했습니다.</p>
@@ -159,7 +160,7 @@ export function MoruProjectDetail({ onNavigate }: MoruProjectDetailProps) {
           </div>
         </section>
 
-        <section className="moru-detail-cta">
+        <section className="moru-detail-cta" data-reveal="block">
           <p>Have a space in mind?</p>
           <h2>당신의 일상에서 시작하는 공간을 이야기해 주세요.</h2>
           <div>

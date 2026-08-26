@@ -92,7 +92,7 @@ export function BasketSeasonDetail({ onNavigate }: BasketSeasonDetailProps) {
               </PortfolioRouteLink>
             </div>
           </div>
-          <figure>
+          <figure data-reveal="image">
             <img
               src={basketHero}
               width="1122"
@@ -110,7 +110,7 @@ export function BasketSeasonDetail({ onNavigate }: BasketSeasonDetailProps) {
             <h2>토마토 피크닉 세트</h2>
             <p>2인이 나누기 좋은 샌드위치, 샐러드와 시즌 음료 구성입니다.</p>
           </div>
-          <div className="basket-detail-menu-cards">
+          <div className="basket-detail-menu-cards" data-reveal="stagger">
             <article>
               <span>01</span>
               <h3>토마토 바질 멜트</h3>
@@ -132,7 +132,7 @@ export function BasketSeasonDetail({ onNavigate }: BasketSeasonDetailProps) {
           </div>
         </section>
 
-        <section className="basket-detail-ingredients">
+        <section className="basket-detail-ingredients" data-reveal="block">
           <div className="basket-ingredient-stamp" aria-hidden="true">
             LOCAL
             <br />
@@ -158,7 +158,7 @@ export function BasketSeasonDetail({ onNavigate }: BasketSeasonDetailProps) {
           </ul>
         </section>
 
-        <section className="basket-detail-visit">
+        <section className="basket-detail-visit" data-reveal="stagger">
           <div>
             <span>When & where</span>
             <h2>
@@ -191,7 +191,7 @@ export function BasketSeasonDetail({ onNavigate }: BasketSeasonDetailProps) {
           </div>
         </section>
 
-        <section className="basket-detail-footer-cta">
+        <section className="basket-detail-footer-cta" data-reveal="block">
           <p>Bring your appetite!</p>
           <h2>이번 주말, 토마토 피크닉 어때요?</h2>
           <PortfolioRouteLink

@@ -85,7 +85,11 @@ export function VectoronProductDetail({
               </PortfolioRouteLink>
             </div>
           </div>
-          <div className="vectoron-product-visual" aria-hidden="true">
+          <div
+            className="vectoron-product-visual"
+            data-reveal="block"
+            aria-hidden="true"
+          >
             <span>VNX</span>
             <strong>400</strong>
             <i />
@@ -94,11 +98,11 @@ export function VectoronProductDetail({
         </section>
 
         <section className="vectoron-detail-performance">
-          <div className="detail-section-heading">
+          <div className="detail-section-heading" data-reveal="block">
             <span>01 / Performance</span>
             <h2>검토에 필요한 핵심 수치를 한눈에.</h2>
           </div>
-          <dl>
+          <dl data-reveal="stagger">
             <div>
               <dt>검사 정확도</dt>
               <dd>99.97%</dd>
@@ -118,12 +122,13 @@ export function VectoronProductDetail({
         </section>
 
         <section className="vectoron-detail-specs">
-          <div className="detail-section-heading">
+          <div className="detail-section-heading" data-reveal="block">
             <span>02 / Specification</span>
             <h2>제품 사양</h2>
           </div>
           <div
             className="vectoron-spec-table"
+            data-reveal="block"
             role="region"
             aria-label="VNX-400 제품 사양표"
           >
@@ -159,11 +164,11 @@ export function VectoronProductDetail({
         </section>
 
         <section className="vectoron-detail-deployment">
-          <div className="detail-section-heading">
+          <div className="detail-section-heading" data-reveal="block">
             <span>03 / Deployment</span>
             <h2>현장 조건을 먼저 확인하고 단계적으로 도입합니다.</h2>
           </div>
-          <ol>
+          <ol data-reveal="stagger">
             <li>
               <span>01</span>
               <strong>라인 진단</strong>
@@ -182,7 +187,7 @@ export function VectoronProductDetail({
           </ol>
         </section>
 
-        <section className="vectoron-detail-cta">
+        <section className="vectoron-detail-cta" data-reveal="block">
           <p>Ready for line review?</p>
           <h2>귀사의 검사 조건으로 VNX-400을 검토하세요.</h2>
           <a href="mailto:hello@vectoron.example">견적 및 기술 상담 요청 ↗</a>

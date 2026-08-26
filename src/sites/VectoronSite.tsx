@@ -52,7 +52,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
               제품 상세 보기 <span>↗</span>
             </PortfolioRouteLink>
           </div>
-          <dl className="vectoron-metrics">
+          <dl className="vectoron-metrics" data-reveal="stagger">
             <div>
               <dt>검사 정확도</dt>
               <dd>
@@ -117,7 +117,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
         <span>ISO 9001 / CE</span>
       </section>
       <section className="vectoron-product">
-        <div className="vectoron-section-title">
+        <div className="vectoron-section-title" data-reveal="block">
           <span>Platform / 01</span>
           <h3>
             한 화면에서 확인하는
@@ -132,7 +132,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
             VNX-400 제품 상세 <span>↗</span>
           </PortfolioRouteLink>
         </div>
-        <div className="vectoron-dashboard">
+        <div className="vectoron-dashboard" data-reveal="block">
           <div className="dashboard-top">
             <span>LINE 03 · LIVE</span>
             <span>2026.08.24 14:32:08</span>
@@ -169,7 +169,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
         id="vectoron-application"
         aria-labelledby="vectoron-applications-title"
       >
-        <div className="vectoron-application-intro">
+        <div className="vectoron-application-intro" data-reveal="block">
           <span>Application / 02</span>
           <h3 id="vectoron-applications-title">
             생산 환경에 맞춰
@@ -181,7 +181,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
             구성합니다.
           </p>
         </div>
-        <div className="vectoron-application-grid">
+        <div className="vectoron-application-grid" data-reveal="stagger">
           <article>
             <span>01</span>
             <h4>정밀 전자 부품</h4>
@@ -201,6 +201,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
       </section>
       <section
         className="vectoron-spec section-anchor-target"
+        data-reveal="stagger"
         id="vectoron-spec"
       >
         <div>
@@ -219,6 +220,7 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
       </section>
       <section
         className="vectoron-cta section-anchor-target"
+        data-reveal="block"
         id="vectoron-contact"
       >
         <span>Build a reliable line.</span>

@@ -84,14 +84,14 @@ export function BasketSite({ onNavigate }: BasketSiteProps) {
         </span>
       </div>
       <section className="basket-menu section-anchor-target" id="basket-menu">
-        <div className="basket-section-head">
+        <div className="basket-section-head" data-reveal="block">
           <div>
             <span>Fresh picks</span>
             <h3>이번 주의 바스켓</h3>
           </div>
           <a href="#basket-stores">전체 메뉴 보기 ↗</a>
         </div>
-        <div className="menu-grid">
+        <div className="menu-grid" data-reveal="stagger">
           <article>
             <div className="menu-art menu-art--red">
               <span>BEST</span>
@@ -129,6 +129,7 @@ export function BasketSite({ onNavigate }: BasketSiteProps) {
       </section>
       <section
         className="basket-season section-anchor-target"
+        data-reveal="block"
         id="basket-season"
       >
         <div className="season-badge">
@@ -156,6 +157,7 @@ export function BasketSite({ onNavigate }: BasketSiteProps) {
       </section>
       <section
         className="basket-stores section-anchor-target"
+        data-reveal="stagger"
         id="basket-stores"
       >
         <div>
