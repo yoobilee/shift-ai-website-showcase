@@ -1,6 +1,12 @@
 import basketHero from "../assets/generated/basket-hero.webp";
+import { PortfolioRouteLink } from "../components/PortfolioRouteLink";
+import { buildDetailHref } from "../utils/routeState";
 
-export function BasketSite() {
+interface BasketSiteProps {
+  onNavigate: (href: string) => void;
+}
+
+export function BasketSite({ onNavigate }: BasketSiteProps) {
   return (
     <article
       className="brand-site basket-site"
@@ -41,9 +47,12 @@ export function BasketSite() {
             한 끼.
           </p>
           <div className="basket-actions">
-            <a href="#basket-menu">
-              시즌 메뉴 보기 <span>→</span>
-            </a>
+            <PortfolioRouteLink
+              href={buildDetailHref("tomato-picnic")}
+              onNavigate={onNavigate}
+            >
+              시즌 메뉴 자세히 보기 <span>→</span>
+            </PortfolioRouteLink>
             <a href="#basket-stores">매장 찾기</a>
           </div>
           <div className="basket-rating">
@@ -138,7 +147,12 @@ export function BasketSite() {
             맛있는 순간을 놓치지 않도록.
           </p>
         </div>
-        <a href="#basket-menu">이달의 식재료 이야기 →</a>
+        <PortfolioRouteLink
+          href={buildDetailHref("tomato-picnic")}
+          onNavigate={onNavigate}
+        >
+          토마토 피크닉 자세히 보기 →
+        </PortfolioRouteLink>
       </section>
       <section
         className="basket-stores section-anchor-target"

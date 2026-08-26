@@ -16,6 +16,18 @@ SHIFT는 산업기술·B2B, 인테리어·공간, 로컬 F&B 홈페이지를 실
 
 공유하는 것은 업종·테마·보기 상태, 도구 모음, URL 규칙과 접근성 로직입니다. 섹션 순서, 그리드, 타입 스케일, 이미지 비율, CTA 표현은 업종별로 분리했습니다.
 
+## 대표 세부 페이지
+
+메인 화면의 헤더 메뉴는 각 업종의 섹션 앵커로 유지하고, 관련 카드·이미지·시즌 CTA에서 대표 사례의 세부 페이지로 진입합니다. 세부 페이지에서도 SHIFT 도구 모음과 업종 선택, 테마와 보기 모드를 그대로 사용할 수 있습니다.
+
+| 업종          | 경로                           | 검토 목적                                                                |
+| ------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| 산업기술·B2B  | `/industrial/products/vnx-400` | 성능·사양·적용 환경과 도입 과정을 비교한 뒤 기술 상담으로 연결           |
+| 인테리어·공간 | `/space/projects/serene-house` | 대형 이미지와 재료·철학·과정을 작품처럼 감상한 뒤 프로젝트 상담으로 연결 |
+| 로컬 F&B      | `/food/season/tomato-picnic`   | 시즌 메뉴·재료·판매 기간과 매장을 확인한 뒤 방문으로 연결                |
+
+세부 페이지에서 업종을 바꾸면 선택한 업종의 메인 화면으로 이동합니다. 각 세부 화면의 breadcrumb와 CTA에는 현재 업종 메인으로 돌아가는 경로를 제공합니다.
+
 ## 전체 화면 탐색과 보기 모드
 
 - 첫 진입에는 산업기술·B2B 홈페이지가 브라우저 프레임 없이 전체 너비로 표시됩니다.
@@ -86,6 +98,8 @@ Vite가 출력한 로컬 주소를 브라우저에서 엽니다.
 
 이전 링크 호환을 위해 `?industry=industry`도 산업기술·B2B로 처리합니다. 값이 없거나 잘못된 경우 `industrial`을 기본값으로 사용합니다.
 
+대표 세부 페이지는 pathname을 기준으로 판별하고 History API로 화면을 전환합니다. 내부 링크, 브라우저 뒤로 가기·앞으로 가기와 URL 직접 접속을 지원하며, Vercel에서는 `vercel.json`의 SPA rewrite로 세부 경로 새로고침을 `index.html`에 연결합니다. 별도 라우터 의존성은 사용하지 않습니다.
+
 ## 주요 폴더 구조
 
 ```text
@@ -93,20 +107,26 @@ src/
 ├── App.tsx                         # 전체 화면 쇼케이스 셸과 독립 상태
 ├── App.css                         # 기존 업종별 시각 시스템
 ├── Shell.css                       # 도구 모음, 테마, drawer와 품질 보강
+├── DetailPages.css                 # 업종별 세부 페이지의 독립 레이아웃
 ├── components/
 │   ├── IndustrySegmentedControl.tsx
+│   ├── PortfolioRouteLink.tsx      # History API 탐색을 보강하는 시맨틱 링크
 │   ├── PortfolioToolbar.tsx
 │   └── ProjectInfoDialog.tsx
 ├── config/industries.ts            # 업종 registry와 표시 데이터
 ├── hooks/
 │   ├── useStickyHeaderHeight.ts    # 업종 sticky header 높이와 앵커 기준 동기화
 │   └── useTheme.ts                 # 테마 상태와 루트 속성
-├── sites/                          # 업종별 독립 홈페이지
+├── details/                        # 업종별 대표 세부 페이지
+├── sites/                          # 업종별 독립 메인 홈페이지
 ├── utils/
+│   ├── routeState.ts               # pathname route 판별과 링크 생성
 │   ├── themeStorage.ts
 │   └── urlState.ts
 └── types.ts
 ```
+
+루트의 `vercel.json`은 Vite SPA의 직접 경로 접속을 위한 rewrite만 정의합니다.
 
 ## 검증 명령
 

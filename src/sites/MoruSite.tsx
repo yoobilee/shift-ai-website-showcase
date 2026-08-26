@@ -1,7 +1,13 @@
 import moruGallery from "../assets/generated/moru-gallery.webp";
 import moruHero from "../assets/generated/moru-hero.webp";
+import { PortfolioRouteLink } from "../components/PortfolioRouteLink";
+import { buildDetailHref } from "../utils/routeState";
 
-export function MoruSite() {
+interface MoruSiteProps {
+  onNavigate: (href: string) => void;
+}
+
+export function MoruSite({ onNavigate }: MoruSiteProps) {
   return (
     <article
       className="brand-site moru-site"
@@ -12,8 +18,8 @@ export function MoruSite() {
           MORU<span>SPACE</span>
         </a>
         <nav aria-label="모루 스페이스 주요 메뉴">
-          <a href="#moru-projects">Projects</a>
           <a href="#moru-philosophy">Philosophy</a>
+          <a href="#moru-projects">Projects</a>
           <a href="#moru-process">Process</a>
         </nav>
         <a className="moru-contact" href="#moru-contact">
@@ -33,14 +39,16 @@ export function MoruSite() {
           </p>
         </div>
         <figure className="moru-photo moru-photo--main">
-          <img
-            className="room-scene room-scene--warm"
-            src={moruHero}
-            width="1402"
-            height="1122"
-            fetchPriority="high"
-            alt="곡면 회벽과 긴 오크 벤치에 늦은 오후 빛이 드는 주거 라운지"
-          />
+          <div className="moru-main-image">
+            <img
+              className="room-scene room-scene--warm"
+              src={moruHero}
+              width="1402"
+              height="1122"
+              fetchPriority="high"
+              alt="곡면 회벽과 긴 오크 벤치에 늦은 오후 빛이 드는 주거 라운지"
+            />
+          </div>
           <figcaption>
             <span>01</span>
             <p>
@@ -121,10 +129,18 @@ export function MoruSite() {
               alt="곡면 회벽과 오크 가구가 조화를 이룬 공간"
             />
             <figcaption>
-              <strong>House of Quiet</strong>
+              <strong>Serene House</strong>
               <span>Residential · Hannam</span>
             </figcaption>
           </figure>
+          <PortfolioRouteLink
+            className="moru-detail-entry"
+            href={buildDetailHref("serene-house")}
+            onNavigate={onNavigate}
+          >
+            <span>프로젝트 자세히 보기</span>
+            <span aria-hidden="true">↗</span>
+          </PortfolioRouteLink>
         </div>
       </section>
       <section className="moru-process section-anchor-target" id="moru-process">

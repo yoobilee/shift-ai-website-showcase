@@ -1,12 +1,16 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./App.css";
 import "./Shell.css";
+import "./DetailPages.css";
 import {
   PortfolioToolbar,
   PortfolioToolbarToggle,
 } from "./components/PortfolioToolbar";
 import { ProjectInfoDialog } from "./components/ProjectInfoDialog";
 import { industries } from "./config/industries";
+import { BasketSeasonDetail } from "./details/BasketSeasonDetail";
+import { MoruProjectDetail } from "./details/MoruProjectDetail";
+import { VectoronProductDetail } from "./details/VectoronProductDetail";
 import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
 import { useTheme } from "./hooks/useTheme";
 import { BasketSite } from "./sites/BasketSite";
@@ -14,10 +18,11 @@ import { MoruSite } from "./sites/MoruSite";
 import { VectoronSite } from "./sites/VectoronSite";
 import type { IndustryId, ViewportMode } from "./types";
 import {
-  getValidIndustryHash,
-  readIndustryFromUrl,
-  writeIndustryToUrl,
-} from "./utils/urlState";
+  buildMainHref,
+  readPortfolioRoute,
+  type PortfolioRoute,
+} from "./utils/routeState";
+import { getValidIndustryHash } from "./utils/urlState";
 
 const siteMap = {
   industrial: VectoronSite,
@@ -26,7 +31,11 @@ const siteMap = {
 };
 
 function App() {
-  const [industry, setIndustry] = useState<IndustryId>(readIndustryFromUrl);
+  const [route, setRoute] = useState<PortfolioRoute>(() =>
+    readPortfolioRoute(),
+  );
+  const initialRouteRef = useRef<PortfolioRoute>(route);
+  const [industry, setIndustry] = useState<IndustryId>(route.industry);
   const [viewport, setViewport] = useState<ViewportMode>("fullscreen");
   const [projectInfoOpen, setProjectInfoOpen] = useState(false);
   const [toolbarExpanded, setToolbarExpanded] = useState(true);
@@ -35,9 +44,9 @@ function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const projectInfoButtonRef = useRef<HTMLButtonElement>(null);
   const industryPanelRef = useRef<HTMLDivElement>(null);
-  const industryRef = useRef(industry);
   const pendingHistoryHashRef = useRef<string | null>(null);
   const restoreInitialHashRef = useRef(true);
+  const pendingRouteFocusRef = useRef(false);
   const pendingToolbarLayoutRef = useRef<{
     layoutHeight: number;
     scrollY: number;
@@ -75,43 +84,61 @@ function App() {
     }
   }, [toolbarExpanded]);
 
-  useStickyHeaderHeight(industryPanelRef, industry, toolbarExpanded);
+  useStickyHeaderHeight(
+    industryPanelRef,
+    `${industry}:${route.key}`,
+    toolbarExpanded,
+  );
 
   useLayoutEffect(() => {
-    industryRef.current = industry;
     document.documentElement.dataset.industry = industry;
     const pendingHash =
-      pendingHistoryHashRef.current ??
-      (restoreInitialHashRef.current ? getValidIndustryHash(industry) : null);
+      route.kind === "main"
+        ? (pendingHistoryHashRef.current ??
+          (restoreInitialHashRef.current
+            ? getValidIndustryHash(industry)
+            : null))
+        : null;
     if (pendingHash) {
       document
         .getElementById(pendingHash)
         ?.scrollIntoView({ behavior: "auto", block: "start" });
     }
+    if (pendingRouteFocusRef.current) {
+      industryPanelRef.current?.focus({ preventScroll: true });
+      pendingRouteFocusRef.current = false;
+    }
     pendingHistoryHashRef.current = null;
     restoreInitialHashRef.current = false;
-  }, [industry]);
+  }, [industry, route]);
 
   useEffect(() => {
-    const initialIndustry = readIndustryFromUrl();
-    writeIndustryToUrl(initialIndustry, "replace", {
-      preserveValidHash: true,
-    });
+    const initialRoute = initialRouteRef.current;
+    if (initialRoute.kind === "main") {
+      const initialHash = getValidIndustryHash(initialRoute.industry);
+      const initialHref = buildMainHref(
+        initialRoute.industry,
+        initialHash ?? undefined,
+      );
+      window.history.replaceState(
+        { ...window.history.state, industry: initialRoute.industry },
+        "",
+        initialHref,
+      );
+    }
 
-    const restoreIndustry = () => {
-      const restoredIndustry = readIndustryFromUrl();
+    const restoreRoute = () => {
+      const restoredRoute = readPortfolioRoute();
       pendingHistoryHashRef.current =
-        restoredIndustry === industryRef.current
-          ? null
-          : getValidIndustryHash(restoredIndustry);
-      writeIndustryToUrl(restoredIndustry, "replace", {
-        preserveValidHash: true,
-      });
+        restoredRoute.kind === "main"
+          ? getValidIndustryHash(restoredRoute.industry)
+          : null;
       setTransitionEnabled(true);
-      setIndustry(restoredIndustry);
+      setIndustry(restoredRoute.industry);
+      setRoute(restoredRoute);
     };
-    window.addEventListener("popstate", restoreIndustry);
-    return () => window.removeEventListener("popstate", restoreIndustry);
+    window.addEventListener("popstate", restoreRoute);
+    return () => window.removeEventListener("popstate", restoreRoute);
   }, []);
 
   useEffect(() => {
@@ -125,12 +152,53 @@ function App() {
     }
   }, [projectInfoOpen]);
 
-  const selectIndustry = (nextIndustry: IndustryId) => {
-    if (nextIndustry === industry) return;
+  useEffect(() => {
+    const pageName =
+      route.kind === "main"
+        ? activeIndustry.desktopLabel
+        : route.detailPage === "vnx-400"
+          ? "VNX-400 제품"
+          : route.detailPage === "serene-house"
+            ? "Serene House 프로젝트"
+            : "Tomato Picnic 시즌 메뉴";
+    document.title = `${pageName} — SHIFT`;
+  }, [activeIndustry.desktopLabel, route]);
+
+  const navigateTo = (
+    href: string,
+    options: { focusContent?: boolean } = {},
+  ) => {
+    const url = new URL(href, window.location.href);
+    const nextRoute = readPortfolioRoute(url);
+    const nextHash =
+      nextRoute.kind === "main"
+        ? getValidIndustryHash(nextRoute.industry, url.hash)
+        : null;
+
+    url.hash = nextHash ? `#${nextHash}` : "";
+    window.history.pushState(
+      {
+        ...window.history.state,
+        industry: nextRoute.industry,
+        route: nextRoute.key,
+      },
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+
+    pendingHistoryHashRef.current = nextHash;
+    pendingRouteFocusRef.current = options.focusContent ?? true;
     setTransitionEnabled(true);
-    setIndustry(nextIndustry);
-    writeIndustryToUrl(nextIndustry);
-    window.scrollTo({ top: 0, behavior: "auto" });
+    setIndustry(nextRoute.industry);
+    setRoute(nextRoute);
+    if (!nextHash) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  };
+
+  const selectIndustry = (nextIndustry: IndustryId) => {
+    if (nextIndustry === industry && route.kind === "main") return;
+    navigateTo(buildMainHref(nextIndustry), { focusContent: false });
   };
 
   const closeProjectInfo = () => {
@@ -181,11 +249,13 @@ function App() {
           id="showcase-content"
           className="showcase-stage"
           data-viewport={viewport}
-          aria-label={`${activeIndustry.desktopLabel} 홈페이지 미리보기`}
+          aria-label={`${activeIndustry.desktopLabel} ${
+            route.kind === "detail" ? "세부 페이지" : "홈페이지"
+          } 미리보기`}
         >
           <div
             ref={industryPanelRef}
-            key={industry}
+            key={`${industry}:${route.key}`}
             id={activeIndustry.panelId}
             className="industry-panel"
             data-transition={transitionEnabled ? "enabled" : "disabled"}
@@ -193,7 +263,17 @@ function App() {
             aria-labelledby={`industry-tab-${industry}`}
             tabIndex={0}
           >
-            <ActiveSite />
+            {route.kind === "detail" ? (
+              route.detailPage === "vnx-400" ? (
+                <VectoronProductDetail onNavigate={navigateTo} />
+              ) : route.detailPage === "serene-house" ? (
+                <MoruProjectDetail onNavigate={navigateTo} />
+              ) : (
+                <BasketSeasonDetail onNavigate={navigateTo} />
+              )
+            ) : (
+              <ActiveSite onNavigate={navigateTo} />
+            )}
           </div>
         </main>
       </div>
