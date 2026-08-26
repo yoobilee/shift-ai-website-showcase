@@ -39,14 +39,16 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
           </p>
         </div>
         <figure className="moru-photo moru-photo--main">
-          <img
-            className="room-scene room-scene--warm"
-            src={moruHero}
-            width="1402"
-            height="1122"
-            fetchPriority="high"
-            alt="곡면 회벽과 긴 오크 벤치에 늦은 오후 빛이 드는 주거 라운지"
-          />
+          <div className="moru-main-image">
+            <img
+              className="room-scene room-scene--warm"
+              src={moruHero}
+              width="1402"
+              height="1122"
+              fetchPriority="high"
+              alt="곡면 회벽과 긴 오크 벤치에 늦은 오후 빛이 드는 주거 라운지"
+            />
+          </div>
           <figcaption>
             <span>01</span>
             <p>
@@ -126,18 +128,19 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
               loading="lazy"
               alt="곡면 회벽과 오크 가구가 조화를 이룬 공간"
             />
-            <figcaption className="moru-project-caption--linked">
+            <figcaption>
               <strong>Serene House</strong>
               <span>Residential · Hannam</span>
-              <PortfolioRouteLink
-                className="moru-detail-entry"
-                href={buildDetailHref("serene-house")}
-                onNavigate={onNavigate}
-              >
-                프로젝트 자세히 보기 <span aria-hidden="true">↗</span>
-              </PortfolioRouteLink>
             </figcaption>
           </figure>
+          <PortfolioRouteLink
+            className="moru-detail-entry"
+            href={buildDetailHref("serene-house")}
+            onNavigate={onNavigate}
+          >
+            <span>프로젝트 자세히 보기</span>
+            <span aria-hidden="true">↗</span>
+          </PortfolioRouteLink>
         </div>
       </section>
       <section className="moru-process section-anchor-target" id="moru-process">

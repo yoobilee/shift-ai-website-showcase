@@ -959,6 +959,14 @@ body.dialog-open {
   --site-muted: #686158;
   --site-accent: #7b6e5d;
   --site-border: #aaa399;
+  --moru-image-title: #fffdf7;
+  --moru-image-scrim: linear-gradient(
+    135deg,
+    rgba(20, 17, 14, 0.86) 0%,
+    rgba(20, 17, 14, 0.7) 52%,
+    rgba(20, 17, 14, 0.18) 78%,
+    transparent 100%
+  );
   --m-bg: var(--site-background);
   --m-ink: var(--site-text);
   --m-line: var(--site-border);
@@ -2144,10 +2152,77 @@ body.dialog-open {
 
   .moru-hero {
     padding-block: 38px var(--mobile-section-space);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto auto;
+    gap: 0;
+  }
+
+  .moru-intro {
+    display: contents;
+  }
+
+  .moru-intro > span {
+    margin-bottom: 18px;
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .moru-intro h1 {
-    margin-block: 38px 22px;
+    z-index: 2;
+    max-width: 9ch;
+    margin: 0;
+    padding: clamp(24px, 8cqi, 32px);
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    color: var(--moru-image-title);
+    pointer-events: none;
+  }
+
+  .moru-intro h1 em {
+    color: inherit;
+  }
+
+  .moru-intro p {
+    max-width: 34ch;
+    margin: 0;
+    padding-block: 22px 10px;
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .moru-photo--main {
+    position: relative;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .moru-main-image {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .moru-main-image::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: var(--moru-image-scrim);
+    pointer-events: none;
+  }
+
+  .moru-photo--detail {
+    width: 58%;
+    margin-top: 28px;
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: end;
+  }
+
+  .moru-side-meta {
+    margin-top: 28px;
+    grid-column: 1;
+    grid-row: 5;
   }
 
   .moru-manifesto,
@@ -2178,19 +2253,31 @@ body.dialog-open {
     object-position: center;
   }
 
-  .moru-project-grid figcaption,
-  .moru-project-grid .moru-project-caption--linked {
+  .moru-project-grid figcaption {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 6px;
   }
 
-  .moru-project-grid .moru-detail-entry {
-    grid-column: auto;
+  .moru-project-grid > .moru-detail-entry {
+    grid-column: 1 / -1;
     width: 100%;
-    padding-inline: 10px;
-    justify-content: space-between;
+    margin-top: 10px;
+    padding-inline: 16px;
+    justify-content: center;
     line-height: 1.4;
+    text-align: center;
+  }
+
+  .moru-project-grid > .moru-detail-entry > span:first-child {
+    min-width: 0;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+
+  .moru-project-grid > .moru-detail-entry > span:last-child {
+    flex: 0 0 auto;
   }
 
   .moru-process {

@@ -36,13 +36,9 @@
   font-size: 13px;
 }
 
-.moru-project-grid .moru-project-caption--linked {
-  display: grid;
-  grid-template-columns: 1fr auto;
-}
-
 .moru-detail-entry {
-  grid-column: 1 / -1;
+  grid-column: 2;
+  justify-self: start;
   width: fit-content;
   min-height: 44px;
   margin-top: 10px;
@@ -58,7 +54,7 @@
 
 .moru-detail-entry > span {
   color: inherit;
-  font-size: 14px;
+  font-size: inherit;
 }
 
 /* Industrial detail: dense comparison and review flow */
@@ -1010,9 +1006,6 @@
 
   .detail-section-heading h2,
   .vectoron-detail-cta h2,
-  .moru-detail-philosophy p,
-  .moru-detail-materials h2,
-  .moru-detail-cta h2,
   .basket-detail-menu h2,
   .basket-detail-ingredients h2,
   .basket-detail-visit h2,
@@ -1020,6 +1013,28 @@
     font-size: var(--mobile-display-section);
     line-height: 1.12;
     text-wrap: balance;
+  }
+
+  .moru-detail-philosophy p,
+  .moru-detail-materials h2,
+  .moru-detail-cta h2 {
+    font-size: clamp(29px, 8.5cqi, 38px);
+    line-height: 1.18;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+
+  .moru-detail-philosophy p {
+    max-width: none;
+  }
+
+  .moru-detail-philosophy em {
+    white-space: normal;
+  }
+
+  .moru-detail-materials h2 {
+    max-width: 7.5em;
   }
 
   .vectoron-detail-intro > p:last-of-type,
