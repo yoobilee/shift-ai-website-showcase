@@ -9,11 +9,16 @@
 
 [배포된 사이트 보기](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app)
 
+## 대표 화면
+
 ![SHIFT 산업기술·B2B 대표 화면](docs/showcase-overview.png)
+
+현재 저장소에는 산업기술·B2B 대표 화면이 포함되어 있습니다. 인테리어·공간과 로컬 F&B를 포함한 업종별 화면은 배포 사이트에서 직접 전환해 확인할 수 있습니다.
 
 <details>
 <summary>목차 펼치기</summary>
 
+- [대표 화면](#대표-화면)
 - [프로젝트 소개](#프로젝트-소개)
 - [왜 만들었나](#왜-만들었나)
 - [세 업종 경험 비교](#세-업종-경험-비교)
@@ -114,16 +119,18 @@ SHIFT는 산업기술·B2B, 인테리어·공간, 로컬 F&B라는 서로 다른
 
 ## 아키텍처
 
-```text
-URL / browser history
-        ↓
-App — route · industry · theme · viewport · drawer state
-        ↓
-Portfolio shell — toolbar · segmented tabs · dialog · sticky offset
-        ↓
-Industry registry ── main site or detail page
-        ↓
-Semantic CSS tokens · responsive layout · progressive motion
+```mermaid
+flowchart TD
+    URL["URL · Browser History"] --> APP["App<br/>route · industry · theme · viewport · drawer state"]
+    APP --> SHELL["Portfolio Shell<br/>toolbar · segmented tabs · dialog · sticky offset"]
+    APP --> ROUTE{"Route type"}
+    ROUTE -->|Main| REGISTRY["Industry Registry"]
+    ROUTE -->|Detail| DETAILS["Industry Detail Pages"]
+    REGISTRY --> INDUSTRY["Industrial · Space · Food main sites"]
+    DETAILS --> INDUSTRY
+    SHELL --> TOKENS["Semantic CSS tokens"]
+    INDUSTRY --> TOKENS
+    TOKENS --> OUTPUT["Responsive layout · accessible interaction · progressive motion"]
 ```
 
 - `routeState.ts`가 pathname과 업종 검색 매개변수를 해석하고 링크를 생성합니다.
