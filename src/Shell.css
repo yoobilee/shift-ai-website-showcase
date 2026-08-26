@@ -30,6 +30,11 @@
   --scrollbar-track: #d9dde5;
   --scrollbar-thumb: #59616f;
   --scrollbar-thumb-hover: #303743;
+  --scroll-top-background: rgba(250, 251, 252, 0.94);
+  --scroll-top-foreground: #17191d;
+  --scroll-top-border: #8c929c;
+  --scroll-top-hover: #eef0f3;
+  --scroll-top-shadow: 0 8px 24px rgba(18, 25, 38, 0.16);
 }
 
 :root[data-toolbar-state="collapsed"] {
@@ -67,6 +72,11 @@
   --dialog-header-background: rgba(27, 29, 32, 0.94);
   --dialog-backdrop: rgba(4, 5, 7, 0.68);
   --dialog-shadow: -28px 0 80px rgba(0, 0, 0, 0.48);
+  --scroll-top-background: rgba(35, 38, 44, 0.96);
+  --scroll-top-foreground: #f4f5f7;
+  --scroll-top-border: #737984;
+  --scroll-top-hover: #484d56;
+  --scroll-top-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
 }
 
 :root[data-industry="industrial"] {
@@ -471,6 +481,78 @@ body.dialog-open {
   border: 1px solid var(--toolbar-border);
   border-radius: 28px;
   box-shadow: 0 24px 70px rgba(13, 19, 30, 0.24);
+}
+
+@media (min-width: 761px) {
+  .showcase-stage[data-viewport="mobile"] .industry-panel {
+    height: min(
+      780px,
+      calc(100svh - var(--portfolio-toolbar-current-height) - 80px)
+    );
+    min-height: min(
+      560px,
+      calc(100svh - var(--portfolio-toolbar-current-height) - 80px)
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding-block-start: 0;
+  }
+
+  :root[data-toolbar-state="collapsed"]
+    .showcase-stage[data-viewport="mobile"]
+    .industry-panel {
+    scroll-padding-block-start: var(--industry-header-current-height);
+  }
+}
+
+.scroll-to-top-button {
+  position: fixed;
+  z-index: 90;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--scroll-top-border);
+  border-radius: 999px;
+  color: var(--scroll-top-foreground);
+  background: var(--scroll-top-background);
+  box-shadow: var(--scroll-top-shadow);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  cursor: pointer;
+}
+
+.scroll-to-top-button[data-viewport="mobile"] {
+  right: max(20px, calc((100vw - min(390px, 100vw)) / 2 + 14px));
+}
+
+.scroll-to-top-button[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-to-top-button:focus-visible {
+  outline: 3px solid var(--shell-focus);
+  outline-offset: 3px;
+}
+
+.scroll-to-top-button:active {
+  transform: scale(0.97);
+}
+
+.scroll-to-top-button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .brand-site {

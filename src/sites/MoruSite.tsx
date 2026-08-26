@@ -90,11 +90,8 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
       >
         <span>Our philosophy</span>
         <p>
-          좋은 공간은 먼저 자신을 드러내지 않습니다.
-          <br />
-          빛, 재료, 사람의 움직임이 자연스럽게 관계 맺도록
-          <br />
-          <em>필요한 것만 남깁니다.</em>
+          좋은 공간은 먼저 자신을 드러내지 않습니다. 빛, 재료, 사람의 움직임이
+          자연스럽게 관계 맺도록 <em>필요한 것만 남깁니다.</em>
         </p>
       </section>
       <section

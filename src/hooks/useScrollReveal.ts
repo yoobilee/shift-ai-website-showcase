@@ -1,16 +1,5 @@
 import { useEffect, type RefObject } from "react";
-
-function findScrollContainer(element: HTMLElement): Element | null {
-  let parent = element.parentElement;
-
-  while (parent && parent !== document.body) {
-    const { overflowY } = window.getComputedStyle(parent);
-    if (/auto|scroll|overlay/.test(overflowY)) return parent;
-    parent = parent.parentElement;
-  }
-
-  return null;
-}
+import { findScrollContainer } from "../utils/scrollContainer";
 
 export function useScrollReveal(
   containerRef: RefObject<HTMLElement | null>,

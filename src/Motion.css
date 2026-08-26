@@ -24,6 +24,20 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .scroll-to-top-button {
+    transition:
+      opacity var(--motion-feedback-duration) var(--ease-out),
+      transform var(--motion-feedback-duration) var(--ease-out),
+      color var(--motion-feedback-duration) var(--ease-out),
+      background-color var(--motion-feedback-duration) var(--ease-out),
+      border-color var(--motion-feedback-duration) var(--ease-out),
+      visibility 0s linear var(--motion-feedback-duration);
+  }
+
+  .scroll-to-top-button[data-visible="true"] {
+    transition-delay: 0s;
+  }
+
   .industry-panel[data-transition="enabled"] {
     animation: route-enter var(--motion-route-duration) var(--ease-out) both;
   }
@@ -148,6 +162,11 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
+    .scroll-to-top-button:hover {
+      border-color: var(--shell-focus);
+      background: var(--scroll-top-hover);
+    }
+
     :is(
         .vectoron-contact,
         .vectoron-actions a,
@@ -208,6 +227,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scroll-to-top-button,
+  .scroll-to-top-button[data-visible="true"],
+  .scroll-to-top-button:active,
   .industry-panel,
   [data-reveal],
   [data-reveal] > * {

@@ -8,12 +8,14 @@ import {
   PortfolioToolbarToggle,
 } from "./components/PortfolioToolbar";
 import { ProjectInfoDialog } from "./components/ProjectInfoDialog";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import { industries } from "./config/industries";
 import { BasketSeasonDetail } from "./details/BasketSeasonDetail";
 import { MoruProjectDetail } from "./details/MoruProjectDetail";
 import { VectoronProductDetail } from "./details/VectoronProductDetail";
 import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
 import { useScrollReveal } from "./hooks/useScrollReveal";
+import { useScrollToTop } from "./hooks/useScrollToTop";
 import { useTheme } from "./hooks/useTheme";
 import { BasketSite } from "./sites/BasketSite";
 import { MoruSite } from "./sites/MoruSite";
@@ -92,6 +94,10 @@ function App() {
     toolbarExpanded,
   );
   useScrollReveal(industryPanelRef, `${industry}:${route.key}`);
+  const { visible: scrollToTopVisible, scrollToTop } = useScrollToTop(
+    industryPanelRef,
+    `${industry}:${route.key}:${viewport}`,
+  );
 
   useLayoutEffect(() => {
     document.documentElement.dataset.industry = industry;
@@ -279,6 +285,11 @@ function App() {
             )}
           </div>
         </main>
+        <ScrollToTopButton
+          visible={scrollToTopVisible && !projectInfoOpen}
+          viewport={viewport}
+          onActivate={scrollToTop}
+        />
       </div>
 
       <ProjectInfoDialog open={projectInfoOpen} onClose={closeProjectInfo} />
