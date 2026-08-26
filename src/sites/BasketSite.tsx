@@ -47,9 +47,12 @@ export function BasketSite({ onNavigate }: BasketSiteProps) {
             한 끼.
           </p>
           <div className="basket-actions">
-            <a href="#basket-menu">
-              시즌 메뉴 보기 <span>→</span>
-            </a>
+            <PortfolioRouteLink
+              href={buildDetailHref("tomato-picnic")}
+              onNavigate={onNavigate}
+            >
+              시즌 메뉴 자세히 보기 <span>→</span>
+            </PortfolioRouteLink>
             <a href="#basket-stores">매장 찾기</a>
           </div>
           <div className="basket-rating">

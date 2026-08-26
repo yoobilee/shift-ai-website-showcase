@@ -134,7 +134,7 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
                 href={buildDetailHref("serene-house")}
                 onNavigate={onNavigate}
               >
-                Serene House 살펴보기 ↗
+                프로젝트 자세히 보기 <span aria-hidden="true">↗</span>
               </PortfolioRouteLink>
             </figcaption>
           </figure>

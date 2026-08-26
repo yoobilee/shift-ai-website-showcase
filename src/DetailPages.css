@@ -45,13 +45,20 @@
   grid-column: 1 / -1;
   width: fit-content;
   min-height: 44px;
-  margin-top: 3px;
+  margin-top: 10px;
+  padding: 0 14px;
+  border: 1px solid var(--site-border);
+  background: var(--site-surface);
   display: inline-flex;
   align-items: center;
+  gap: 18px;
   color: var(--site-text);
   font-size: 12px;
-  text-decoration: underline;
-  text-underline-offset: 5px;
+}
+
+.moru-detail-entry > span {
+  color: inherit;
+  font-size: 14px;
 }
 
 /* Industrial detail: dense comparison and review flow */
@@ -873,6 +880,11 @@
   .moru-detail-entry:hover,
   .moru-detail-cta a:hover {
     color: var(--site-accent);
+  }
+
+  .moru-detail-entry:hover {
+    border-color: var(--site-accent);
+    background: color-mix(in srgb, var(--site-accent) 8%, var(--site-surface));
   }
 
   .basket-detail-actions a:hover,

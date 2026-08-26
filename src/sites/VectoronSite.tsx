@@ -45,7 +45,12 @@ export function VectoronSite({ onNavigate }: VectoronSiteProps) {
             <a href="#vectoron-contact">
               도입 견적 요청 <span>→</span>
             </a>
-            <a href="#vectoron-spec">제품 사양 확인</a>
+            <PortfolioRouteLink
+              href={buildDetailHref("vnx-400")}
+              onNavigate={onNavigate}
+            >
+              제품 상세 보기 <span>↗</span>
+            </PortfolioRouteLink>
           </div>
           <dl className="vectoron-metrics">
             <div>
