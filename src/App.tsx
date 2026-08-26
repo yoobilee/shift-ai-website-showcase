@@ -38,6 +38,10 @@ function App() {
   const industryRef = useRef(industry);
   const pendingHistoryHashRef = useRef<string | null>(null);
   const restoreInitialHashRef = useRef(true);
+  const pendingToolbarLayoutRef = useRef<{
+    layoutHeight: number;
+    scrollY: number;
+  } | null>(null);
   const ActiveSite = siteMap[industry];
   const activeIndustry =
     industries.find((item) => item.id === industry) ?? industries[0];
@@ -46,6 +50,29 @@ function App() {
     document.documentElement.dataset.toolbarState = toolbarExpanded
       ? "expanded"
       : "collapsed";
+
+    const pendingLayout = pendingToolbarLayoutRef.current;
+    if (pendingLayout) {
+      const toolbarHeight =
+        document.getElementById("portfolio-toolbar")?.getBoundingClientRect()
+          .height ?? 0;
+      const industryHeaderHeight =
+        industryPanelRef.current
+          ?.querySelector<HTMLElement>(".brand-site > header")
+          ?.getBoundingClientRect().height ?? 0;
+      const nextScrollY = Math.max(
+        0,
+        pendingLayout.scrollY +
+          toolbarHeight +
+          industryHeaderHeight -
+          pendingLayout.layoutHeight,
+      );
+
+      if (pendingLayout.scrollY > 0) {
+        window.scrollTo({ top: nextScrollY, behavior: "auto" });
+      }
+      pendingToolbarLayoutRef.current = null;
+    }
   }, [toolbarExpanded]);
 
   useStickyHeaderHeight(industryPanelRef, industry, toolbarExpanded);
@@ -111,6 +138,22 @@ function App() {
     requestAnimationFrame(() => projectInfoButtonRef.current?.focus());
   };
 
+  const changeToolbarExpanded = (expanded: boolean) => {
+    const toolbarHeight =
+      document.getElementById("portfolio-toolbar")?.getBoundingClientRect()
+        .height ?? 0;
+    const industryHeaderHeight =
+      industryPanelRef.current
+        ?.querySelector<HTMLElement>(".brand-site > header")
+        ?.getBoundingClientRect().height ?? 0;
+
+    pendingToolbarLayoutRef.current = {
+      layoutHeight: toolbarHeight + industryHeaderHeight,
+      scrollY: window.scrollY,
+    };
+    setToolbarExpanded(expanded);
+  };
+
   return (
     <>
       <a className="skip-link" href="#showcase-content">
@@ -131,7 +174,7 @@ function App() {
         />
         <PortfolioToolbarToggle
           expanded={toolbarExpanded}
-          onExpandedChange={setToolbarExpanded}
+          onExpandedChange={changeToolbarExpanded}
         />
 
         <main
