@@ -7,14 +7,14 @@
 [![Vite 8](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
 [![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com/)
 
-[배포된 사이트 보기](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app)
+[배포된 사이트 보기](https://shift-ai-website-showcase.vercel.app)
 
 ## 대표 화면
 
-|                                                                 산업기술·B2B<br>VECTORON SYSTEMS                                                                 |                                                            인테리어·공간<br>MORU SPACE                                                            |                                                               로컬 F&B<br>BASKET DAY DELI                                                               |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [![VECTORON SYSTEMS](docs/screenshots/vectoron-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=industrial) | [![MORU SPACE](docs/screenshots/moru-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=space) | [![BASKET DAY DELI](docs/screenshots/basket-main.webp)](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/?industry=food) |
-|                                                                      정보 검증 → 견적 문의                                                                       |                                                               감도 탐색 → 상담 예약                                                               |                                                                  메뉴 발견 → 매장 방문                                                                  |
+|                                               산업기술·B2B<br>VECTORON SYSTEMS                                                |                                          인테리어·공간<br>MORU SPACE                                           |                                             로컬 F&B<br>BASKET DAY DELI                                              |
+| :---------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+| [![VECTORON SYSTEMS](docs/screenshots/vectoron-main.webp)](https://shift-ai-website-showcase.vercel.app/?industry=industrial) | [![MORU SPACE](docs/screenshots/moru-main.webp)](https://shift-ai-website-showcase.vercel.app/?industry=space) | [![BASKET DAY DELI](docs/screenshots/basket-main.webp)](https://shift-ai-website-showcase.vercel.app/?industry=food) |
+|                                                     정보 검증 → 견적 문의                                                     |                                             감도 탐색 → 상담 예약                                              |                                                메뉴 발견 → 매장 방문                                                 |
 
 <details>
 <summary>목차 펼치기</summary>
@@ -77,11 +77,11 @@ SHIFT는 산업기술·B2B, 인테리어·공간, 로컬 F&B라는 서로 다른
 
 메인 헤더 메뉴는 기존 섹션 앵커 역할을 유지하고, 관련 카드·이미지·CTA에서 대표 사례로 진입합니다. 세부 페이지에서도 SHIFT 도구 모음, 업종 전환, 테마와 보기 모드를 그대로 사용할 수 있습니다.
 
-| 업종          | 경로                                                                                                                                          | 페이지 목적                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| 산업기술·B2B  | [`/industrial/products/vnx-400`](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/industrial/products/vnx-400) | 성능·사양·적용 환경과 도입 과정을 비교한 뒤 기술 상담으로 연결  |
-| 인테리어·공간 | [`/space/projects/serene-house`](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/space/projects/serene-house) | 대형 이미지와 재료·철학·과정을 감상한 뒤 프로젝트 상담으로 연결 |
-| 로컬 F&B      | [`/food/season/tomato-picnic`](https://shift-ai-website-showcase-gtt1jk0sh-yblrrto23-9322s-projects.vercel.app/food/season/tomato-picnic)     | 시즌 메뉴·재료·판매 기간과 매장을 확인한 뒤 방문으로 연결       |
+| 업종          | 경로                                                                                                       | 페이지 목적                                                     |
+| ------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| 산업기술·B2B  | [`/industrial/products/vnx-400`](https://shift-ai-website-showcase.vercel.app/industrial/products/vnx-400) | 성능·사양·적용 환경과 도입 과정을 비교한 뒤 기술 상담으로 연결  |
+| 인테리어·공간 | [`/space/projects/serene-house`](https://shift-ai-website-showcase.vercel.app/space/projects/serene-house) | 대형 이미지와 재료·철학·과정을 감상한 뒤 프로젝트 상담으로 연결 |
+| 로컬 F&B      | [`/food/season/tomato-picnic`](https://shift-ai-website-showcase.vercel.app/food/season/tomato-picnic)     | 시즌 메뉴·재료·판매 기간과 매장을 확인한 뒤 방문으로 연결       |
 
 업종을 전환하면 선택한 업종의 메인 화면으로 이동하며, 각 세부 페이지에는 해당 업종 메인으로 돌아가는 breadcrumb와 CTA가 있습니다.
 
