@@ -42,13 +42,13 @@ function App() {
   const activeIndustry =
     industries.find((item) => item.id === industry) ?? industries[0];
 
-  useStickyHeaderHeight(industryPanelRef, industry);
-
   useLayoutEffect(() => {
     document.documentElement.dataset.toolbarState = toolbarExpanded
       ? "expanded"
       : "collapsed";
   }, [toolbarExpanded]);
+
+  useStickyHeaderHeight(industryPanelRef, industry, toolbarExpanded);
 
   useLayoutEffect(() => {
     industryRef.current = industry;

@@ -1,7 +1,7 @@
 /* Full-screen portfolio shell */
 :root {
   --portfolio-toolbar-expanded-height: 58px;
-  --portfolio-toolbar-collapsed-height: calc(44px + env(safe-area-inset-top));
+  --portfolio-toolbar-collapsed-height: 0px;
   --portfolio-toolbar-current-height: var(--portfolio-toolbar-expanded-height);
   --industry-header-current-height: 72px;
   --sticky-stack-offset: calc(
@@ -167,19 +167,24 @@ body.dialog-open {
 
 .industry-segmented-control::before {
   content: "";
-  position: absolute;
-  z-index: -1;
-  inset-block: var(--segment-gap);
-  inset-inline-start: var(--segment-gap);
-  width: calc((100% - var(--segment-gap) * 2) / 3);
+  position: relative;
+  z-index: 0;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  box-sizing: border-box;
   border: 1px solid color-mix(in srgb, var(--toolbar-border) 72%, transparent);
   border-radius: 10px;
   background: var(--toolbar-active);
   box-shadow: none;
+  pointer-events: none;
   transform: translateX(calc(var(--active-index) * 100%));
 }
 
 .industry-segmented-control button {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
   min-width: 0;
   min-height: 36px;
   padding: 4px 10px;
@@ -192,6 +197,18 @@ body.dialog-open {
   letter-spacing: -0.015em;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.industry-segmented-control button:nth-of-type(1) {
+  grid-column: 1;
+}
+
+.industry-segmented-control button:nth-of-type(2) {
+  grid-column: 2;
+}
+
+.industry-segmented-control button:nth-of-type(3) {
+  grid-column: 3;
 }
 
 .industry-segmented-control button[aria-selected="true"] {
@@ -256,10 +273,6 @@ body.dialog-open {
   background: var(--toolbar-active);
 }
 
-.portfolio-toolbar-toggle[data-expanded="false"] svg {
-  transform: rotate(180deg);
-}
-
 .portfolio-toolbar-toggle {
   position: fixed;
   z-index: 110;
@@ -273,12 +286,40 @@ body.dialog-open {
   inset-block-start: env(safe-area-inset-top);
   inset-inline-start: 50%;
   translate: -50% 0;
-  border-block-start: 0;
-  border-radius: 0 0 12px 12px;
+  border: 0;
   color: var(--toolbar-text);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.portfolio-toolbar-toggle[data-expanded="false"]::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  width: 36px;
+  height: 18px;
+  border: 1px solid var(--toolbar-border);
+  border-block-start: 0;
+  border-radius: 0 0 10px 10px;
   background: var(--toolbar-background);
-  box-shadow: 0 8px 18px rgba(13, 19, 30, 0.16);
-  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 5px 12px rgba(13, 19, 30, 0.14);
+  transform: translateX(-50%);
+}
+
+.portfolio-toolbar-toggle[data-expanded="false"] svg {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.portfolio-toolbar-toggle[data-expanded="false"]:focus-visible {
+  outline-offset: -3px;
 }
 
 .theme-control button[aria-pressed="true"],
@@ -358,6 +399,19 @@ body.dialog-open {
   height: var(--industry-header-layout-height);
   min-height: var(--industry-header-layout-height);
   background: var(--site-background);
+}
+
+:root[data-toolbar-state="collapsed"] .brand-site > header {
+  height: max(
+    var(--industry-header-layout-height),
+    calc(86px + env(safe-area-inset-top))
+  );
+  min-height: max(
+    var(--industry-header-layout-height),
+    calc(86px + env(safe-area-inset-top))
+  );
+  padding-block: 0;
+  align-items: end;
 }
 
 /* Project information drawer */
@@ -1090,7 +1144,7 @@ body.dialog-open {
     --portfolio-toolbar-expanded-height: calc(
       104px + max(5px, env(safe-area-inset-top))
     );
-    --portfolio-toolbar-collapsed-height: calc(44px + env(safe-area-inset-top));
+    --portfolio-toolbar-collapsed-height: 0px;
   }
 
   .portfolio-toolbar[data-expanded="true"] {
@@ -1744,6 +1798,15 @@ body.dialog-open {
     color: var(--toolbar-text);
     background: var(--toolbar-active);
     box-shadow: inset 0 0 0 1px var(--toolbar-border);
+  }
+
+  .portfolio-toolbar-toggle[data-expanded="false"]:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .portfolio-toolbar-toggle[data-expanded="false"]:hover::before {
+    background: var(--toolbar-active);
   }
 
   .project-info-header button:hover {

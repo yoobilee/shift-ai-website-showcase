@@ -4,6 +4,7 @@ import type { IndustryId } from "../types";
 export function useStickyHeaderHeight(
   panelRef: RefObject<HTMLDivElement | null>,
   industry: IndustryId,
+  toolbarExpanded: boolean,
 ) {
   useLayoutEffect(() => {
     const panel = panelRef.current;
@@ -28,5 +29,5 @@ export function useStickyHeaderHeight(
       resizeObserver.disconnect();
       root.style.removeProperty("--industry-header-current-height");
     };
-  }, [industry, panelRef]);
+  }, [industry, panelRef, toolbarExpanded]);
 }
