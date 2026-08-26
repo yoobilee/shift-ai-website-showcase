@@ -23,11 +23,11 @@ export function MoruSite() {
       <section className="moru-hero" id="moru-home">
         <div className="moru-intro">
           <span>Seoul · Since 2018</span>
-          <h2>
+          <h1>
             Space,
             <br />
             made to <em>linger.</em>
-          </h2>
+          </h1>
           <p>
             머무는 사람의 속도와 빛의 방향에서 시작하는 공간 디자인 스튜디오.
           </p>
@@ -65,13 +65,20 @@ export function MoruSite() {
             <i>Stone / Lime plaster</i>
           </figcaption>
         </figure>
-        <p className="moru-side-note">
-          Selected works
-          <br />
-          2023—2026
-        </p>
+        <div className="moru-side-meta">
+          <span className="moru-side-line" aria-hidden="true" />
+          <p className="moru-side-note">
+            Selected works
+            <br />
+            2023—2026
+          </p>
+          <span className="moru-side-orbit" aria-hidden="true" />
+        </div>
       </section>
-      <section className="moru-manifesto" id="moru-philosophy">
+      <section
+        className="moru-manifesto section-anchor-target"
+        id="moru-philosophy"
+      >
         <span>Our philosophy</span>
         <p>
           좋은 공간은 먼저 자신을 드러내지 않습니다.
@@ -81,7 +88,10 @@ export function MoruSite() {
           <em>필요한 것만 남깁니다.</em>
         </p>
       </section>
-      <section className="moru-projects" id="moru-projects">
+      <section
+        className="moru-projects section-anchor-target"
+        id="moru-projects"
+      >
         <div className="moru-section-head">
           <span>Selected projects</span>
           <span>View all 18 ↗</span>
@@ -117,7 +127,7 @@ export function MoruSite() {
           </figure>
         </div>
       </section>
-      <section className="moru-process" id="moru-process">
+      <section className="moru-process section-anchor-target" id="moru-process">
         <div>
           <span>01</span>
           <h3>Observe</h3>
@@ -134,7 +144,7 @@ export function MoruSite() {
           <p>현장에서 디테일을 끝까지 조정합니다.</p>
         </div>
       </section>
-      <section className="moru-cta" id="moru-contact">
+      <section className="moru-cta section-anchor-target" id="moru-contact">
         <p>Have a space in mind?</p>
         <h3>
           Let’s make room

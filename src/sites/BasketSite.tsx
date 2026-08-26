@@ -27,17 +27,15 @@ export function BasketSite() {
       <section className="basket-hero" id="basket-home">
         <div className="basket-copy">
           <span className="basket-sticker">
-            SEASON
-            <br />
+            <span>SEASON</span>
             <strong>08</strong>
-            <br />
-            LIMITED
+            <span>LIMITED</span>
           </span>
           <p>Fresh from the neighborhood.</p>
-          <h2>
+          <h1>
             오늘의 기분을
             <br />한 바구니 가득!
-          </h2>
+          </h1>
           <p className="basket-description">
             제철 토마토와 바질, 갓 구운 포카치아로 만든 우리 동네의 산뜻한 여름
             한 끼.
@@ -76,7 +74,7 @@ export function BasketSite() {
           NEIGHBORS ·
         </span>
       </div>
-      <section className="basket-menu" id="basket-menu">
+      <section className="basket-menu section-anchor-target" id="basket-menu">
         <div className="basket-section-head">
           <div>
             <span>Fresh picks</span>
@@ -120,7 +118,10 @@ export function BasketSite() {
           </article>
         </div>
       </section>
-      <section className="basket-season" id="basket-season">
+      <section
+        className="basket-season section-anchor-target"
+        id="basket-season"
+      >
         <div className="season-badge">
           LOCAL
           <br />
@@ -139,7 +140,10 @@ export function BasketSite() {
         </div>
         <a href="#basket-menu">이달의 식재료 이야기 →</a>
       </section>
-      <section className="basket-stores" id="basket-stores">
+      <section
+        className="basket-stores section-anchor-target"
+        id="basket-stores"
+      >
         <div>
           <span>We’re open today</span>
           <h3>

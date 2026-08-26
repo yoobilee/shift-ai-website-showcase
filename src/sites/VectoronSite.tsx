@@ -25,11 +25,11 @@ export function VectoronSite() {
           <div className="vectoron-status">
             <i /> Vision inspection platform · VNX-400
           </div>
-          <h2>
+          <h1>
             보이지 않던 결함까지,
             <br />
             <em>생산 속도 그대로.</em>
-          </h2>
+          </h1>
           <p>
             AI 비전 검사와 엣지 컴퓨팅을 결합해 생산 라인의 미세 결함을
             실시간으로 판별합니다.
@@ -61,38 +61,42 @@ export function VectoronSite() {
             </div>
           </dl>
         </div>
-        <div
-          className="vectoron-visual"
-          role="img"
-          aria-label="생산 라인의 부품을 스캔하는 AI 비전 검사 장비 시각화"
-        >
-          <div className="technical-grid" />
-          <div className="scan-head">
-            <span>VNX</span>
-            <i />
+        <figure className="vectoron-visual">
+          <div
+            className="vectoron-visual-canvas"
+            role="img"
+            aria-label="생산 라인의 부품을 스캔하는 AI 비전 검사 장비 시각화"
+          >
+            <div className="technical-grid" />
+            <div className="scan-head">
+              <span>VNX</span>
+              <i />
+            </div>
+            <div className="scan-beam" />
+            <div className="scan-object">
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
           </div>
-          <div className="scan-beam" />
-          <div className="scan-object">
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className="readout readout--top">
-            <span>Defect map</span>
-            <strong>PASS</strong>
-          </div>
-          <div className="readout readout--bottom">
-            <span>Latency</span>
-            <strong>8.4 ms</strong>
-          </div>
-          <span className="axis axis--x">X 240.08</span>
-          <span className="axis axis--y">Y 118.42</span>
-        </div>
+          <figcaption className="vectoron-telemetry">
+            <div className="readout">
+              <span>Defect map</span>
+              <strong>PASS</strong>
+            </div>
+            <div className="readout">
+              <span>Latency</span>
+              <strong>8.4 ms</strong>
+            </div>
+            <span className="axis">X 240.08</span>
+            <span className="axis">Y 118.42</span>
+          </figcaption>
+        </figure>
       </section>
       <section
-        className="vectoron-band"
-        id="vectoron-application"
+        className="vectoron-band section-anchor-target"
+        id="vectoron-product"
         aria-label="벡터론 기술 특징"
       >
         <span>01 · Deep vision model</span>
@@ -100,7 +104,7 @@ export function VectoronSite() {
         <span>03 · Line integration</span>
         <span>ISO 9001 / CE</span>
       </section>
-      <section className="vectoron-product" id="vectoron-product">
+      <section className="vectoron-product">
         <div className="vectoron-section-title">
           <span>Platform / 01</span>
           <h3>
@@ -141,7 +145,45 @@ export function VectoronSite() {
           </div>
         </div>
       </section>
-      <section className="vectoron-spec" id="vectoron-spec">
+      <section
+        className="vectoron-applications section-anchor-target"
+        id="vectoron-application"
+        aria-labelledby="vectoron-applications-title"
+      >
+        <div className="vectoron-application-intro">
+          <span>Application / 02</span>
+          <h3 id="vectoron-applications-title">
+            생산 환경에 맞춰
+            <br />
+            즉시 적용합니다.
+          </h3>
+          <p>
+            기존 라인의 속도와 조명, 결함 기준을 분석해 필요한 검사 모듈만
+            구성합니다.
+          </p>
+        </div>
+        <div className="vectoron-application-grid">
+          <article>
+            <span>01</span>
+            <h4>정밀 전자 부품</h4>
+            <p>미세 스크래치와 조립 오차를 고속 촬영으로 판별합니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h4>자동차 부품</h4>
+            <p>형상, 치수와 체결 상태를 공정 흐름 안에서 함께 확인합니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h4>패키징 라인</h4>
+            <p>인쇄, 라벨과 밀봉 상태를 생산 속도 저하 없이 추적합니다.</p>
+          </article>
+        </div>
+      </section>
+      <section
+        className="vectoron-spec section-anchor-target"
+        id="vectoron-spec"
+      >
         <div>
           <span>Model</span>
           <strong>VNX-400 Edge</strong>
@@ -156,7 +198,10 @@ export function VectoronSite() {
         </div>
         <a href="#vectoron-contact">전체 사양서 다운로드 ↓</a>
       </section>
-      <section className="vectoron-cta" id="vectoron-contact">
+      <section
+        className="vectoron-cta section-anchor-target"
+        id="vectoron-contact"
+      >
         <span>Build a reliable line.</span>
         <h3>
           귀사의 생산 환경에 맞는
