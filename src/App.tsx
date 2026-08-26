@@ -262,34 +262,48 @@ function App() {
             route.kind === "detail" ? "세부 페이지" : "홈페이지"
           } 미리보기`}
         >
-          <div
-            ref={industryPanelRef}
-            key={`${industry}:${route.key}`}
-            id={activeIndustry.panelId}
-            className="industry-panel"
-            data-transition={transitionEnabled ? "enabled" : "disabled"}
-            role="tabpanel"
-            aria-labelledby={`industry-tab-${industry}`}
-            tabIndex={0}
-          >
-            {route.kind === "detail" ? (
-              route.detailPage === "vnx-400" ? (
-                <VectoronProductDetail onNavigate={navigateTo} />
-              ) : route.detailPage === "serene-house" ? (
-                <MoruProjectDetail onNavigate={navigateTo} />
-              ) : (
-                <BasketSeasonDetail onNavigate={navigateTo} />
-              )
-            ) : (
-              <ActiveSite onNavigate={navigateTo} />
-            )}
+          <div className="mobile-device-frame">
+            <span
+              className="mobile-device-decoration mobile-device-speaker"
+              aria-hidden="true"
+            />
+            <div className="mobile-device-screen">
+              <div
+                ref={industryPanelRef}
+                key={`${industry}:${route.key}`}
+                id={activeIndustry.panelId}
+                className="industry-panel"
+                data-transition={transitionEnabled ? "enabled" : "disabled"}
+                role="tabpanel"
+                aria-labelledby={`industry-tab-${industry}`}
+                tabIndex={0}
+              >
+                {route.kind === "detail" ? (
+                  route.detailPage === "vnx-400" ? (
+                    <VectoronProductDetail onNavigate={navigateTo} />
+                  ) : route.detailPage === "serene-house" ? (
+                    <MoruProjectDetail onNavigate={navigateTo} />
+                  ) : (
+                    <BasketSeasonDetail onNavigate={navigateTo} />
+                  )
+                ) : (
+                  <ActiveSite onNavigate={navigateTo} />
+                )}
+              </div>
+              <div className="mobile-screen-controls">
+                <ScrollToTopButton
+                  visible={scrollToTopVisible && !projectInfoOpen}
+                  viewport={viewport}
+                  onActivate={scrollToTop}
+                />
+              </div>
+            </div>
+            <span
+              className="mobile-device-decoration mobile-device-home-indicator"
+              aria-hidden="true"
+            />
           </div>
         </main>
-        <ScrollToTopButton
-          visible={scrollToTopVisible && !projectInfoOpen}
-          viewport={viewport}
-          onActivate={scrollToTop}
-        />
       </div>
 
       <ProjectInfoDialog open={projectInfoOpen} onClose={closeProjectInfo} />
