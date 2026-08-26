@@ -1,7 +1,13 @@
 import moruGallery from "../assets/generated/moru-gallery.webp";
 import moruHero from "../assets/generated/moru-hero.webp";
+import { PortfolioRouteLink } from "../components/PortfolioRouteLink";
+import { buildDetailHref } from "../utils/routeState";
 
-export function MoruSite() {
+interface MoruSiteProps {
+  onNavigate: (href: string) => void;
+}
+
+export function MoruSite({ onNavigate }: MoruSiteProps) {
   return (
     <article
       className="brand-site moru-site"
@@ -12,8 +18,8 @@ export function MoruSite() {
           MORU<span>SPACE</span>
         </a>
         <nav aria-label="모루 스페이스 주요 메뉴">
-          <a href="#moru-projects">Projects</a>
           <a href="#moru-philosophy">Philosophy</a>
+          <a href="#moru-projects">Projects</a>
           <a href="#moru-process">Process</a>
         </nav>
         <a className="moru-contact" href="#moru-contact">
@@ -120,9 +126,16 @@ export function MoruSite() {
               loading="lazy"
               alt="곡면 회벽과 오크 가구가 조화를 이룬 공간"
             />
-            <figcaption>
-              <strong>House of Quiet</strong>
+            <figcaption className="moru-project-caption--linked">
+              <strong>Serene House</strong>
               <span>Residential · Hannam</span>
+              <PortfolioRouteLink
+                className="moru-detail-entry"
+                href={buildDetailHref("serene-house")}
+                onNavigate={onNavigate}
+              >
+                Serene House 살펴보기 ↗
+              </PortfolioRouteLink>
             </figcaption>
           </figure>
         </div>

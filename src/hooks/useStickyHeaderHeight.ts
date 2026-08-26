@@ -1,9 +1,8 @@
 import { useLayoutEffect, type RefObject } from "react";
-import type { IndustryId } from "../types";
 
 export function useStickyHeaderHeight(
   panelRef: RefObject<HTMLDivElement | null>,
-  industry: IndustryId,
+  contentKey: string,
   toolbarExpanded: boolean,
 ) {
   useLayoutEffect(() => {
@@ -29,5 +28,5 @@ export function useStickyHeaderHeight(
       resizeObserver.disconnect();
       root.style.removeProperty("--industry-header-current-height");
     };
-  }, [industry, panelRef, toolbarExpanded]);
+  }, [contentKey, panelRef, toolbarExpanded]);
 }

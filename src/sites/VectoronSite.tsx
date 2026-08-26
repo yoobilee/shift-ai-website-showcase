@@ -1,4 +1,11 @@
-export function VectoronSite() {
+import { PortfolioRouteLink } from "../components/PortfolioRouteLink";
+import { buildDetailHref } from "../utils/routeState";
+
+interface VectoronSiteProps {
+  onNavigate: (href: string) => void;
+}
+
+export function VectoronSite({ onNavigate }: VectoronSiteProps) {
   return (
     <article
       className="brand-site vectoron-site"
@@ -112,6 +119,13 @@ export function VectoronSite() {
             <br />
             검사 라인의 모든 신호
           </h3>
+          <PortfolioRouteLink
+            className="vectoron-detail-entry"
+            href={buildDetailHref("vnx-400")}
+            onNavigate={onNavigate}
+          >
+            VNX-400 제품 상세 <span>↗</span>
+          </PortfolioRouteLink>
         </div>
         <div className="vectoron-dashboard">
           <div className="dashboard-top">
