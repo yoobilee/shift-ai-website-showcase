@@ -2387,7 +2387,7 @@ body.dialog-open {
   }
 
   .moru-intro p {
-    max-width: 34ch;
+    max-inline-size: min(100%, 28em);
     margin: 0;
     padding-block: 22px 10px;
     grid-column: 1;
