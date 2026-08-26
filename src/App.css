@@ -1312,7 +1312,8 @@
   font-weight: 400;
 }
 .moru-intro p {
-  max-inline-size: min(100%, 30em);
+  min-inline-size: 0;
+  max-inline-size: min(100%, 31em);
   margin: 0;
   color: #666057;
   font-size: 11px;
@@ -1438,10 +1439,11 @@
   text-transform: uppercase;
 }
 .moru-manifesto p {
-  max-inline-size: 24em;
+  min-inline-size: 0;
+  max-inline-size: min(100%, 23em);
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(27px, 3.4vw, 51px);
+  font-size: clamp(27px, 3.2cqi, 50px);
   line-height: 1.35;
   letter-spacing: -0.04em;
   overflow-wrap: normal;
@@ -1561,9 +1563,13 @@
   font-weight: 400;
 }
 .moru-process p {
+  min-inline-size: 0;
   margin: 0;
   color: #6b665e;
   font-size: 9px;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: pretty;
 }
 .moru-cta {
   min-height: 480px;
