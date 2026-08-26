@@ -861,7 +861,7 @@
   letter-spacing: -0.07em;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .vectoron-detail-entry:hover,
   .vectoron-detail-actions a:last-child:hover {
     border-color: var(--site-accent);

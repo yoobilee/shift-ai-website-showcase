@@ -39,7 +39,7 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
           </p>
         </div>
         <figure className="moru-photo moru-photo--main">
-          <div className="moru-main-image">
+          <div className="moru-main-image" data-reveal="image">
             <img
               className="room-scene room-scene--warm"
               src={moruHero}
@@ -85,6 +85,7 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
       </section>
       <section
         className="moru-manifesto section-anchor-target"
+        data-reveal="block"
         id="moru-philosophy"
       >
         <span>Our philosophy</span>
@@ -100,11 +101,11 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
         className="moru-projects section-anchor-target"
         id="moru-projects"
       >
-        <div className="moru-section-head">
+        <div className="moru-section-head" data-reveal="block">
           <span>Selected projects</span>
           <span>View all 18 ↗</span>
         </div>
-        <div className="moru-project-grid">
+        <div className="moru-project-grid" data-reveal="gallery">
           <figure>
             <img
               className="room-scene room-scene--gallery"
@@ -143,7 +144,11 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
           </PortfolioRouteLink>
         </div>
       </section>
-      <section className="moru-process section-anchor-target" id="moru-process">
+      <section
+        className="moru-process section-anchor-target"
+        id="moru-process"
+        data-reveal="stagger"
+      >
         <div>
           <span>01</span>
           <h3>Observe</h3>
@@ -160,7 +165,11 @@ export function MoruSite({ onNavigate }: MoruSiteProps) {
           <p>현장에서 디테일을 끝까지 조정합니다.</p>
         </div>
       </section>
-      <section className="moru-cta section-anchor-target" id="moru-contact">
+      <section
+        className="moru-cta section-anchor-target"
+        id="moru-contact"
+        data-reveal="block"
+      >
         <p>Have a space in mind?</p>
         <h3>
           Let’s make room

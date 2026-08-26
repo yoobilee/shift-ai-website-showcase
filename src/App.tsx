@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./App.css";
 import "./Shell.css";
 import "./DetailPages.css";
+import "./Motion.css";
 import {
   PortfolioToolbar,
   PortfolioToolbarToggle,
@@ -12,6 +13,7 @@ import { BasketSeasonDetail } from "./details/BasketSeasonDetail";
 import { MoruProjectDetail } from "./details/MoruProjectDetail";
 import { VectoronProductDetail } from "./details/VectoronProductDetail";
 import { useStickyHeaderHeight } from "./hooks/useStickyHeaderHeight";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 import { useTheme } from "./hooks/useTheme";
 import { BasketSite } from "./sites/BasketSite";
 import { MoruSite } from "./sites/MoruSite";
@@ -89,6 +91,7 @@ function App() {
     `${industry}:${route.key}`,
     toolbarExpanded,
   );
+  useScrollReveal(industryPanelRef, `${industry}:${route.key}`);
 
   useLayoutEffect(() => {
     document.documentElement.dataset.industry = industry;
